@@ -6,7 +6,7 @@
  *@package      controllers
  *@author       Cardoso Virginia
  *@author       Matias Marzullo
- *@copyright    Septiembre, 2015 - Departamento de Ciencias e Ingeniería de la Computación - UNIVERSIDAD NACIONAL DEL SUR 
+ *@copyright    Septiembre Octubre, 2015 - Departamento de Ciencias e Ingeniería de la Computación - UNIVERSIDAD NACIONAL DEL SUR 
 */
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
@@ -18,6 +18,8 @@ class Catedras extends CI_Controller {
     private $privilegio;
 
     
+
+
   public function __construct()
     {
       parent::__construct();
@@ -49,6 +51,9 @@ class Catedras extends CI_Controller {
         }
 
     }
+
+
+    
 
 
     
