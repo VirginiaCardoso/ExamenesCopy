@@ -159,13 +159,6 @@ private function mostrar_tabla_alumnos(){
                                   $alu['nom_alu'], 
                                   $alu['dni_alu'], 
                                   " ",
-                                  // "<a class='btn btn-danger btn-xs' 
-                                  //     href=".site_url('alumnos/eliminar_alumno/'.$alu['lu_alu'])." >
-                                  //     <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
-                                  //  </a> <a class='btn btn-warning btn-xs' 
-                                  //     href=".site_url('alumnos/modificar_alumno/'.$alu['lu_alu'])." >
-                                  //     <span class='glyphicon glyphicon-pencil' aria-hidden='true'></span>
-                                  //   </a>"
                                   site_url('alumnos/modificar_alumno/'.$alu['lu_alu']),
                                   site_url('alumnos/eliminar_alumno/'.$alu['lu_alu'])
                                   );

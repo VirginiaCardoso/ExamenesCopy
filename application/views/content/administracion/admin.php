@@ -52,6 +52,11 @@
 	</div>
 	<div class="row row-botonera row-botonera-fila1">
 		<div class="col-xs-12 col-boton">
+			<a href="<?php echo site_url('guias/lista_guias');?>" class="btn btn-primary btn-lg btn-block" <?php if ($privilegio_user==0) {echo "disabled";} ?> >Guías</a>
+		</div>
+	</div>
+	<div class="row row-botonera row-botonera-fila1">
+		<div class="col-xs-12 col-boton">
 			<a href="<?php echo site_url('alumnos/lista_alumnos');?>" class="btn btn-primary btn-lg btn-block" <?php if ($privilegio_user!=2) {echo "disabled";} ?> >Alumnos</a>
 		</div>
 	</div>

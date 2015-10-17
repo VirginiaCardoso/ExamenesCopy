@@ -19,7 +19,23 @@ class Guias_model extends CI_Model {
 
 	}
 
+	/**
+	 *	Retorna todas las guias
+	 *
+	 * @access	public
+	 * @param 	$cod_catedra int codigo de la catedra
+	 * @return	array - datos de las guias
+	 *
+	 */
 
+	public function get_guias()
+	{
+		$query_string = "SELECT DISTINCT id_guia,cod_carr,tit_guia,cod_cat,nom_cat FROM guias NATURAL JOIN guias_catedras NATURAL JOIN catedras
+				ORDER BY nro_guia ASC";
+	
+		$query = $this->db->query($query_string);
+		return $query->result_array();
+	}
 	/**
 	 *	Retorna todas las guias de la catedra indicada 
 	 *
@@ -55,6 +71,41 @@ class Guias_model extends CI_Model {
 		$query = $this->db->query($query_string,array($cod_cat,$id_guia));
 	
 		return $query->row_array();
+	}
+	/**
+	 *	Elimina un alumno.
+	 *
+	 * @access	public
+	 * @param 	int $lu_alu
+	 * 
+	 *
+	 */
+
+	public function eliminar_guia($id_guia)
+	{
+		//Verifico que exista un guia con el mismo id_guia
+		$query_string = "SELECT id_guia FROM guias
+				WHERE id_guia = ? ";
+		$query = $this->db->query($query_string,array($id_guia));
+		if($this->db->affected_rows() == 0) 
+		{
+
+			$exam = $query->row_array();	
+			throw new Exception(ERROR_REPETIDO); //cambiar error
+		}
+		else{
+			$query_string = "SELECT cod_cat FROM guias_catedras
+				WHERE id_guia = ? ";
+			$query = $this->db->query($query_string,array($id_guia));
+			if($this->db->affected_rows() > 0) 
+			{	
+				$query_string = "DELETE FROM guias_catedras WHERE id_guia = ?";
+				$this->db->query($query_string,array($id_guia));
+			}
+
+		}
+		$query_string = "DELETE FROM guias WHERE id_guia = ?";
+		$this->db->query($query_string,array($id_guia));
 	}
 
 	/**
@@ -148,7 +199,7 @@ class Guias_model extends CI_Model {
 	 *
 	 */
 
-	public function vincular_item_guia($id_item, $id_guia)
+	public function vincular_item_guia($id_item, $id_guia,$pos_item,$nro_item)
 	{
 
 		//Verifico que no exista el item en la guía
@@ -162,9 +213,9 @@ class Guias_model extends CI_Model {
 		// 	throw new Exception(ERROR_REPETIDO);
 		// }	
 		//Inserto info en la tabla items_guias
-		$query_string = "INSERT INTO items_guias(id_item, id_guia) VALUES (?,?);";
+		$query_string = "INSERT INTO items_guias(id_item, id_guia,pos_item,nro_item) VALUES (?,?,?,?);";
 
-		$this->db->query($query_string,array($id_item,$id_guia));
+		$this->db->query($query_string,array($id_item,$id_guia,$pos_item,$nro_item));
 	
 
 	}

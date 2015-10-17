@@ -40,49 +40,59 @@
 		<div class="div-titulo">
 			<label>Agregar items a guía </label>
 		</div>
-		<!-- obtengo los datos de la guía creada resientemente por medio de la session 	-->
+		<!-- obtengo los datos de la guía creada resientemente por medio de la session 	
 		<?php
 			$id = $this->session->flashdata('id');
 			$tit = $this->session->flashdata('tit');
-		?>
+		?>-->
 		<div class="tabla">
 			<div class="fila">	
 				<div class="columna field-name">
 				Título guía:
 				</div>
 				<div class="columna">
-					<?php echo $tit; ?>
+					<?php echo $tit_guia; ?> 					
 				</div>
 		</div>
 
-			<div class="fila">	
+			<!-- <div class="fila">	
 				<div class="columna field-name">
 					Número guía:
 				</div>
 				<div class="columna">
 					<?php echo $id; ?>
 				</div>
-			</div>
-			  
-			 
-			
+			</div> -->
+			  			 		
 		</div>
+
 
 	<div class="contenedor_guia container">
-	<!-- AQUI VA LA TABLA DE ITEMS   -->
-		<div class="items_guia">
-			<div class="lista col-xs-12">
-				<?php echo $tabla; ?>
-			</div>
+		
+			<!-- AQUI VA LA TABLA DE ITEMS   -->
+				<div class="items_guia">
+					<div class="lista col-xs-12">
+						<?php echo $tabla; ?>
+					</div>   <!--  -->
+					 <form id="form-crear-guia" class="form-crear-guia" role="form" method="post" action="<?php echo site_url('crear_nueva_guia/guardar_guia');?>" >
 
+						<!-- <input type="hidden" name="input-cod-carr" id="input-cod-carr" value="<?php echo $cod_carr; ?>"/> -->
+						<input type="hidden" name="input-cod-cat" id="input-cod-cat" value="<?php echo $cod_cat; ?>"/>
+						<input type="hidden" name="input-tit-guia" id="input-tit-guia" value="<?php echo $tit_guia; ?>"/>
+					 	<div class="guardar-guia form-group-buttons botonera">
 
+							<a id="btn-cancelar" href="<?php echo site_url('crear_nueva_guia/crear_guia');?>" class="btn btn-default ">Cancelar</a>
+						<!-- 	<a id="btn-guardar" data-target="#" class="btn btn-primary btn-lg">Guardar</a> -->
+							<button id="btn-guardar" name="boton" class="btn btn-primary " type="submit" >Guardar</button>
+						</div>
 
+					 </form> 
+				</div>
+						 
 
+		<div class="forms_items ">
 
-
-
-		</div>
-		 <div class="form-group form-radio">
+		<div class="form-group form-radio">
 	    	<div>
 			    <label class="radio-inline">
 			        <input type="radio" name="tipoitem" value="itemsimple"  checked="checked" /> Item simple
@@ -92,8 +102,6 @@
 			    </label>
 			</div>
 		</div>
-
-		<div class="forms_items ">
 		<!-- Nuevo Item -->
 			
 					<div class="row row_items">  
@@ -148,9 +156,6 @@
 		</div>
 	</div>
 
-	<div class="guardar-guia form-group-buttons botonera">
-		<a id="btn-cancelar" href="<?php echo site_url('crear_nueva_guia/crear_guia');?>" class="btn btn-default btn-lg">Cancelar</a>
-		<a id="btn-calificar" data-target="#" class="btn btn-primary btn-lg">Guardar</a>
-	</div>
+	
 
 </div>

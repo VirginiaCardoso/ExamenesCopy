@@ -33,11 +33,9 @@ class Crear_nueva_guia extends CI_Controller {
             $this->legajo = $this->usuario->get_info_sesion_usuario('leg_doc');
             $this->privilegio = $this->usuario->get_info_sesion_usuario('privilegio'); 
 
-            $this->load->model(array('carreras_model','catedras_model','guias_model', 'alumnos_model'));
+            $this->load->model(array('carreras_model','catedras_model','guias_model', 'alumnos_model','items_model'));
 
-            // $this->$tabla = $this->crear_tabla_items();
-
-                
+                            
         }
         else if($this->usuario->logueado()) //no tiene privilegio, pero esta logueado
         { 
@@ -113,11 +111,6 @@ class Crear_nueva_guia extends CI_Controller {
         
         //LISTA CARRERAS
         $carreras = $this->_carreras();
-        //DEBUG
-        //echo 'Carreras del docente:<br/>';
-        //foreach ($carreras as $fila)
-        //    var_dump($fila); echo '<br/>';
-
         if(count($carreras)>0)  //si no hay carreras no manda datos a la view
         {
             $this->view_data['carreras']['list'] = $carreras;  //en la view: $carreras['list'][indice]['cod_carr'].
@@ -199,66 +192,35 @@ class Crear_nueva_guia extends CI_Controller {
         $this->form_validation->set_rules('catedra', 'Cátedra', 'required|integer');
         $this->form_validation->set_rules('guia', 'Nombre de Guía', 'trim|required');
 
-       // $this->form_validation->set_rules('guia', 'guia', 'required|integer');
-        //$this->form_validation->set_rules('alumno', 'alumno', 'required|integer');
-       // $this->form_validation->set_rules('fecha', 'fecha', 'required');
-
         if (!$this->form_validation->run())  //si no verifica inputs
         {
             $this->session->set_flashdata('error', validation_errors());
             redirect('crear_nueva_guia/crear');
         }
 
-        // $items = $this->_items();
-         $cod_carr = $this->input->post('carrera'); 
-         $cod_cat = $this->input->post('catedra'); 
-         $tit_guia = $this->input->post('guia');; 
-        // $this->view_data['items']['list']=$items; //en la view: $items['list'][indice]['id_item'].
-
-        //         if ($this->input->post('privilegio')=="superadmin")
-        // {
-        //     $priv = PRIVILEGIO_SUPERADMIN;
-        // }
-        // else{
-        //     if ($this->input->post('privilegio')=="admin"){
-        //         $priv = PRIVILEGIO_ADMIN;
-        //     }
-        //     else{
-        //         $priv = PRIVILEGIO_DOCENTE;
-        //      }
-        // }
-
-        $id_guia = $this->guias_model->insert_guia_catedra($cod_cat, $tit_guia);
-        $this->util->json_response(TRUE,STATUS_OK,$id_guia); 
+        $cod_carr = $this->input->post('carrera'); 
+        $cod_cat = $this->input->post('catedra'); 
+        $tit_guia = $this->input->post('guia');; 
         
-        // $this->view_data['id_guia']=$id_guia;
-        // $this->view_data['tit_guia']=$tit_guia;
-        // $this->view_data['title'] = "Nueva Guía - Departamento de Ciencias de la Salud";          
-        // $this->load->view('template/header', $this->view_data);
-
-        // $this->view_data['evaluar'] = TRUE;
-        // $this->load->view('content/crear_nueva_guia/guia', $this->view_data);
-
-        // $this->load->view('template/footer'); 
-      // crear_item_guia($id_guia,$tit_guia);
-       
-        $this->session->set_flashdata('tit',$tit_guia);
-        $this->session->set_flashdata('id',$id_guia);
-        redirect('crear_nueva_guia/agregar_items_guia');
+        // $id_guia = $this->guias_model->insert_guia_catedra($cod_cat, $tit_guia);
+        // $this->util->json_response(TRUE,STATUS_OK,$id_guia); 
         
-    }
+        // $datos = array();
+        // $datos['cod_carr'] = $cod_carr; 
+        // $datos['cod_cat'] = $cod_cat; 
+        // $datos['tit_guia'] = $tit_guia;
+       // $this->session->set_flashdata('tit',$tit_guia);
+      //  $this->session->set_flashdata('id',$id_guia);
+       // redirect('crear_nueva_guia/agregar_items_guia');
 
-    public function agregar_items_guia(){
+        //---------------------------------------------
+        //agregar items a guia
 
-        // $tit = $this->session->flashdata('tit');
-        // $this->view_data['title'] = "Agregar items a guia Departamento de Ciencias de la Salud"; 
-
-        //Mensaje de error: flashdata en la sesion
         $error = $this->session->flashdata('error');
         
 
-        $this->session->keep_flashdata('tit');
-        $this->session->keep_flashdata('id');
+        // $this->session->keep_flashdata('tit');
+        // $this->session->keep_flashdata('id');
 
         if($error)
             $this->view_data['error'] = $error;  
@@ -275,22 +237,212 @@ class Crear_nueva_guia extends CI_Controller {
         $this->view_data['title'] = "Agregar items a guia -  Departamento de Ciencias de la Salud";    
         $this->load->view('template/header', $this->view_data);
 
-        $this->view_data['evaluar'] = TRUE;
+        $this->view_data['agregar'] = TRUE;
 
         $tabla= $this->crear_tabla_items();
         $this->view_data['tabla'] = $tabla;
 
+       // $this->view_data['cod_carr'] = $cod_carr; 
+        $this->view_data['cod_cat'] = $cod_cat; 
+        $this->view_data['tit_guia'] = $tit_guia;
+
+
         $this->load->view('content/crear_nueva_guia/guia', $this->view_data);
 
         $this->load->view('template/footer'); 
+        
+    }
+
+    // public function agregar_items_guia(){
+
+    //     // $tit = $this->session->flashdata('tit');
+    //     // $this->view_data['title'] = "Agregar items a guia Departamento de Ciencias de la Salud"; 
+
+    //     //Mensaje de error: flashdata en la sesion
+    //     $error = $this->session->flashdata('error');
+        
+
+    //     $this->session->keep_flashdata('tit');
+    //     $this->session->keep_flashdata('id');
+
+    //     if($error)
+    //         $this->view_data['error'] = $error;  
+
+    //     $this->usuario->set_actividad_actual('agregar_items_guia'); 
+        
+    //     // $grupositems= $this->_grupositems(); 
+    //     // $this->view_data['grupositems']['list']=$grupositems; //en la view: $grupositems['list'][indice]['id_grupoitem'].
+
+    //      $items = $this->_itemsOrderByNom();  
+    //      $this->view_data['items']['list']=$items; //en la view: $items['list'][indice]['id_item'].
+    //      $this->view_data['items']['selected'] = 0;
+ 
+    //     $this->view_data['title'] = "Agregar items a guia -  Departamento de Ciencias de la Salud";    
+    //     $this->load->view('template/header', $this->view_data);
+
+    //     $this->view_data['evaluar'] = TRUE;
+
+    //     $tabla= $this->crear_tabla_items();
+    //     $this->view_data['tabla'] = $tabla;
+
+    //     $this->load->view('content/crear_nueva_guia/guia', $this->view_data);
+
+    //     $this->load->view('template/footer'); 
+
+    // }
+    
+    public function guardar_guia(){
+
+
+        if(!$this->input->post()) 
+            {
+                $error['error_msj'] = "Acceso inválido a la archivación de examen";
+                $this->util->json_response(FALSE,STATUS_EMPTY_POST,$error);
+            }
+            else 
+            {
+                $this->load->library('form_validation');
+               //verifico inputs
+              //  $this->form_validation->set_rules('input-cod-carr', 'input-cod-carr', 'required');
+                $this->form_validation->set_rules('input-cod-cat', 'input-cod-cat', 'required');
+                $this->form_validation->set_rules('input-tit-guia', 'input-tit-guia', 'required');
+                $this->form_validation->set_rules('item-id', 'item-id', 'required');
+                $this->form_validation->set_rules('item-tipo', 'item-tipo', 'required');
+                $this->form_validation->set_rules('item-texto', 'item-texto', 'required');
+
+                 if (!$this->form_validation->run())  //si no verifica inputs requeridos
+                {
+                    $errors = $this->form_validation->error_array();
+                    $msj = '';
+                    foreach ($errors as $error) {
+                        $msj = $msj . $error . " "; 
+                    }
+                    $errors['error_msj'] = $msj;
+                    $this->util->json_response(FALSE,STATUS_INVALID_POST,$errors);
+
+                }
+                else //están los inputs, los valido 
+                {
+                    $valid = TRUE;
+
+                    //obtengo datos de la guia y la creo
+                    // $cod_carr =  $this->input->post('input-cod-carr');
+                    $cod_cat =   $this->input->post('input-cod-cat');
+                    $tit_guia =  $this->input->post('input-tit-guia');
+
+                    try {
+
+                             $guia_id = $this->guias_model->insert_guia_catedra($cod_cat, $tit_guia);
+                             $this->util->json_response(TRUE,STATUS_OK,$guia_id);
+
+                    } catch (Exception $e) {
+
+                    }
+                    
+                    $input_errors = array(); 
+                    //ITEMS: chequea que el array de id, texto y tipo items no sea vacio, y tengan el mismo tamaño
+                    $items_id = $this->input->post('item-id');
+                    if(!$items_id || empty($items_id)) 
+                    {
+                        $valid = false;
+                        $input_errors['item-id']='Arreglo item-id vacio';
+                    }
+                    $items_tipo = $this->input->post('item-tipo');
+                    if(!$items_tipo || empty($items_tipo)) 
+                    {
+                        $valid = false;
+                        $input_errors['item-tipo']='Arreglo item-tipo vacio'; 
+                    }
+                    $items_texto = $this->input->post('item-texto');
+                    if(!$items_texto || empty($items_texto)) 
+                    {
+                        $valid = false;
+                        $input_errors['item-texto']='Arreglo item-texto vacio'; 
+                    }
+                    if (!( count($items_id)==count($items_tipo) && count($items_id)==count($items_texto) ) ) 
+                    {
+                        $valid = false;
+                        $input_errors['items']='Arreglos item-id, item-texto, item-tipo de distinto tamaño';
+                    }
+
+
+                    if (!$valid)    //si no pasa mi validacion
+                    {
+                        $msj = '';
+                        foreach ($input_errors as $error) {
+                            $msj = $msj . $error . ". "; 
+                        }
+                        $input_errors['error_msj'] = $msj;
+                        $this->util->json_response(FALSE,STATUS_INVALID_POST,$input_errors);
+                    }
+                    else
+                    {   //*************************************************************************
+                        
+                        //si el item en tipo tiene "item-nuevo" quiere decir que no esta guardado en la base de datos
+                        //guardarlo en la base de datos 
+                        // desp agregarlo a la guia con el nuevo id 
+
+                        //una vez armado todo el arreglo de items guardar la guia
+                        $arreglo_items = array();
+                        for($i = 0; $i < count($items_id); $i++)
+                        {
+                            if ($items_tipo[$i]=="item-nuevo"){
+                                $id_item = $this->items_model->insert_item($items_texto[$i], 0);
+                                $arreglo_items[$i]['id_item'] = $id_item;
+                                
+                            }
+                            else{
+
+                                $arreglo_items[$i]['id_item'] =$items_id[$i];
+                               // $arreglo_items[$i]['texto'] = $items_texto[$i];
+                            }
+                            $arreglo_items[$i]['pos_item'] = $i+1;
+                            $arreglo_items[$i]['nro_item'] = $i+1;
+                        }
+                        
+                        for($j = 0; $j < count($arreglo_items); $j++){
+                            try {
+
+                             $this->guias_model->vincular_item_guia($arreglo_items[$j]['id_item'], $guia_id,$arreglo_items[$j]['pos_item'],$arreglo_items[$j]['nro_item']);
+                      
+                            } catch (Exception $e) {
+
+                             }
+                        }
+                        
+                        
+                        $this->view_data['title'] = "Agrego";
+
+                        $this->view_data['arreglo_items'] = $arreglo_items; 
+                        $this->view_data['mensaje'] = "Se creo correctamente la guia ".$guia_id."- ".$tit_guia;
+                        $this->load->view('template/header', $this->view_data);
+
+                        $this->load->view('content/crear_nueva_guia/agregada', $this->view_data);
+                        $this->load->view('template/footer'); 
+
+
+                        //Guardar guia y sus items mediante el modelo (operacion atomica, si falla, lanza excepcion)
+                        try {
+
+                            // $examen = $this->examenes_model->guardar_examen($id_guia,$cod_cat,$lu_alu,$this->legajo,$timestamp,$calif_exam,$obs_exam,$items,$porc_exam);
+                            //$examen['id_exam'] = $id_exam;
+                            // $this->util->json_response(TRUE,STATUS_OK,$examen); //no mandar el JSON tal cual la BD por seguridad??
+
+
+                        } catch (Exception $e) {
+
+                        }
+                    }
+                }
+       //  $arreglo_items = $_POST['item-id'];
+
+     
+        
+    }
 
     }
 
 
-
-
-
-    
 
     private function crear_tabla_items(){
        

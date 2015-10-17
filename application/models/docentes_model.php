@@ -49,7 +49,7 @@ class Docentes_model extends CI_Model {
 		//Inserto info en la tabla docente
 		$query_string = "INSERT INTO docentes (leg_doc,pass,apellido_doc,nom_doc,dni_doc,email_doc,tel_doc,privilegio) 
 			 VALUES (?,?,?,?,?,?,?,?)";
-		$this->db->query($query_string,array($leg_doc,$pass, $apellido_doc,$nom_doc,$dni_doc,$email_doc,$tel_doc,$privilegio));
+		$this->db->query($query_string,array($leg_doc,md5($pass), $apellido_doc,$nom_doc,$dni_doc,$email_doc,$tel_doc,$privilegio));
 		
 		
 		if($this->db->affected_rows() == 0)

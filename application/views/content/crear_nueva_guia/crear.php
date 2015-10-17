@@ -30,30 +30,8 @@
 		<label>Crear Nueva Guía</label>
 	</div>
 
-	<form id="form-generar" class="form-generar" role="form" method="post" action="<?php echo site_url('crear_nueva_guia/crear_guia');?>">
-		<!--
-		<div class="form-group-generar form-group-generar-fecha">
-			<label for="fecha" class="control-label">Fecha</label>
-			<div class="form-group fecha">
-                <div id='container-fecha' class='input-group date'>
-                    <input id="fecha" class="form-control fecha input-deshabilitado" type="text" name="fecha" value="<?php echo $fecha; ?>" disabled/>
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-            </div>
-			<label id="error-fecha" class="label-error errores">Fecha inválida</label>
-		</div>
- -->
-
-
-
-
+	<form id="form-crear" class="form-generar" role="form" method="post" action="<?php echo site_url('crear_nueva_guia/crear_guia');?>">
 		<div class="form-group-generar">
-			<!--<div>
-				<label for="select-carrera" class="control-label">Prueba ingresar</label>
-				<input type="text" class="form-control" id="name" name="name" placeholder="Ingresar" value="">
-			</div>
-			 -->
 			<div>
 				<div>
 					<label for="select-carrera" class="control-label">Carrera</label>

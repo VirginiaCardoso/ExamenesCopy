@@ -6,7 +6,7 @@
  *@package      controllers
  *@author       Cardoso Virginia
  *@author       Matias Marzullo
- *@copyright    Septiembre Octubre, 2015 - Departamento de Ciencias e Ingeniería de la Computación - UNIVERSIDAD NACIONAL DEL SUR 
+ *@copyright    Septiembre, 2015 - Departamento de Ciencias e Ingeniería de la Computación - UNIVERSIDAD NACIONAL DEL SUR 
 */
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
@@ -18,8 +18,6 @@ class Catedras extends CI_Controller {
     private $privilegio;
 
     
-
-
   public function __construct()
     {
       parent::__construct();
@@ -54,9 +52,6 @@ class Catedras extends CI_Controller {
 
 
     
-
-
-    
 /**
      * Controlador para listar todas las catedras
      *  
@@ -78,7 +73,7 @@ class Catedras extends CI_Controller {
         foreach ($catedras as $catedra) {
             $this->table->add_row($catedra['cod_cat'],
                                   $catedra['nom_cat'],
-                                  $catedra['nom_carr'].'('.$catedra['cod_carr'].')',
+                                  $catedra['nom_carr'].' ('.$catedra['cod_carr'].')',
                                   "",
                                   site_url('catedras/alumnos_catedra/'.$catedra['cod_cat']),
                                   site_url('catedras/docentes_catedra/'.$catedra['cod_cat']),
