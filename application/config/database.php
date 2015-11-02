@@ -49,9 +49,9 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'dcs_lab';
-$db['default']['password'] = 'dcic2015..';
-$db['default']['database'] = 'dcs_examenes';
+$db['default']['username'] = 'u_dcs';
+$db['default']['password'] = '2000-virgiNIA-MAti';
+$db['default']['database'] = 'db_dcs';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

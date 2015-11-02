@@ -30,7 +30,7 @@
  
  <div class="div-titulo">
 
-		<label>Modificar usuario </label>
+		<label><?php echo '<a href="usuarios" title="Ir la página anterior">Usuarios/</a>';?>Modificar usuario </label>
  </div>
   <!-- Contenio pestaña crear nuevos usuarios  -->
   	<div id="div-form-nuevo" class="form-container">

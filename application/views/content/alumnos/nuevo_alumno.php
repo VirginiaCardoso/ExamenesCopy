@@ -30,7 +30,7 @@
  
  <div class="div-titulo">
 
-		<label>Nuevo Alumno</label>
+		<label><?php echo '<a href="lista_alumnos" title="Ir la página anterior">Estudiante/</a>';?>Nuevo Estudiante</label>
  </div>
   <!-- Contenio pestaña crear nuevos usuarios  -->
   	<div id="div-form-nuevo" class="form-container">

@@ -3,7 +3,7 @@
 	AUTOR		Diego Martín Schwindt
 	COPYRIGHT	Abril, 2014 - Departamento de Ciencias e Ingeniería de la Computación - UNIVERSIDAD NACIONAL DEL SUR 
 -->
-
+   
 <?php 
 	/**
 	 *	Imprime en HTML los valores del item, incluyendo los input hidden y las opciones de seleccion
@@ -22,7 +22,7 @@
 		$value = "";
 
 		if($evaluar) 
-		{
+		{				// <input type='hidden' name='item-pond[]' class='item-pond' id='pond-item-{$item['id']}' value='{$item['pond']}'/>
 			$inputs = 	"<input type='hidden' name='item-id[]' id='input-item-{$item['id']}' value='{$item['id']}'/>
 						 <input type='hidden' name='item-estado[]' class='item-estado' id='estado-item-{$item['id']}' data-item='{$item['id']}' value='-1'/>";
 		}
@@ -200,7 +200,7 @@
 
 		<div class="fila">	
 			<div class="columna field-name">
-				Alumno:
+				Estudiante:
 			</div>
 			<div class="columna">
 				<?php echo $alumno['lu_alu'].' - '.$alumno['apellido_alu'].', '.$alumno['nom_alu']; ?>

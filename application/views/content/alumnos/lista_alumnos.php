@@ -31,7 +31,7 @@
 
  
  <div class="div-titulo">
-		<label>Lista de Alumnos </label>
+		<label><?php echo '<a href="../administracion/admin" title="Ir la página anterior">Administración/</a>';?>Lista de Estudiantes</label>
  </div>
  <div id="lista-usuarios" >
  	<a id="btn-agregar" href="<?php echo site_url('alumnos/nuevo_alumno');?>" class="btn btn-primary ">Agregar nuevo</a>   	

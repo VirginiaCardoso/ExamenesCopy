@@ -32,7 +32,7 @@
 
  
  <div class="div-titulo">
-		<label>Lista de Usuarios </label>
+		<label><?php echo '<a href="admin" title="Ir la página anterior">Administración/</a>';?>Lista de Usuarios </label>
  </div>
  <div id="lista-usuarios" >
    <a id="btn-agregar" href="<?php echo site_url('administracion/nuevo_usuario');?>" class="btn btn-primary ">Agregar nuevo</a> 	

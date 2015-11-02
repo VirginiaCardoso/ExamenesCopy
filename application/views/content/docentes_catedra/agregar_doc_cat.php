@@ -46,7 +46,7 @@
 <div id="div-form" class="form-container">
 
 	<div class="div-titulo">
-		<label>Agregar Alumnos a Cátedra: <?php echo $catedra['cod_cat'].' - '.$catedra['nom_cat']; ?></label> 
+		<label><?php echo '<a href="../lista_catedras" title="Ir la página anterior">Cátedras/</a>';?>Agregar Estudiantes a Cátedra: <?php echo $catedra['cod_cat'].' - '.$catedra['nom_cat']; ?></label> 
 	</div>
 
 	
@@ -83,7 +83,7 @@
 			}
 		?>
 			</div>
-			<label id="error-docente" class="label-error errores">Alumno inválido</label>
+			<label id="error-docente" class="label-error errores">Estudiante inválido</label>
 		</div>
 
 	<!-- 	<div class="form-group-buttons">

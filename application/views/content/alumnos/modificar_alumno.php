@@ -38,7 +38,7 @@
 
  <div class="div-titulo">
 
-		<label>Modificar Alumno</label>
+		<label><?php echo '<a href="../lista_alumnos" title="Ir la página anterior">Estudiantes/</a>';?>Modificar Estudiante</label>
  </div>
   <!-- Contenido pestaña crear nueva catedra  -->
   	<div id="div-form-nuevo" class="form-container">

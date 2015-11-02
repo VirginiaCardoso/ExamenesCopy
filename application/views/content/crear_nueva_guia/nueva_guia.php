@@ -91,7 +91,7 @@
 			        		</div>
 			    	</div>
 			    	
-					<!-- div para agregar los nuevos campos segun lo que se selecciona -------------->
+					<!-- div para agregar los nuevos campos segun lo que se selecciona -->
 					<div id="div-nuevos">
 						<label> Agregar item: </label> 
 						 <br>

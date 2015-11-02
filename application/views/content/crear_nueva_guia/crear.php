@@ -3,7 +3,6 @@
 	AUTOR		Marzullo Matias
 	COPYRIGHT	Julio, 2015 - Departamento de Ciencias e Ingeniería de la Computación - UNIVERSIDAD NACIONAL DEL SUR 
 -->
-
 <link type="text/css" href="<?php echo base_url('assets/css/datepicker/css/bootstrap-datetimepicker.min.css'); ?>" rel="stylesheet" media="screen"/>
 
 <link type="text/css" href="<?php echo base_url('assets/css/examen/generar.css'); ?>" rel="stylesheet" media="screen"/>
@@ -29,7 +28,6 @@
 	<div class="div-titulo">
 		<label>Crear Nueva Guía</label>
 	</div>
-
 	<form id="form-crear" class="form-generar" role="form" method="post" action="<?php echo site_url('crear_nueva_guia/crear_guia');?>">
 		<div class="form-group-generar">
 			<div>
@@ -102,11 +100,21 @@
 			</div>
 			<label id="error-catedra" class="label-error errores">Cátedra inválida</label>
 		</div>
+				<div class="form-group">
+						<div class="row"> 
+							<div class="col-xs-12">
+			    				<label for="nro">Número de Guía</label>
+			    				<input type="text" class="form-control" id="nro" name="nro" placeholder="Ingrese el Número de Guía">
+			    			</div>
+			    		</div>
+			  		</div>
 		<div class="form-group">
 						<div class="row"> 
 							<div class="col-xs-12">
 			    				<label for="guia">Título de Guía</label>
-			    				<input type="text" class="form-control" id="guia" name="guia" placeholder="Ingrese Título de Guía">
+			    				<input type="text" class="form-control" id="guia" name="guia" placeholder="Ingrese el Título de la Guía">
+			    				<!-- value="<? echo set_value('guia');?>" ESTE PARAMETRO SIRVE POR SI INGRESO MAL UN DATO, NO VOLVER A CARGARLO, TODAVIA NO ANDA
+			    				<? echo form_error('guia');?> MUESTRAR EL ERROR DEL CAMPO -->
 			    			</div>
 			    		</div>
 			  		</div>

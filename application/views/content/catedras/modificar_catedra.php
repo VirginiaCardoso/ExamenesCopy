@@ -51,7 +51,7 @@
  
  <div class="div-titulo">
 
-		<label>Modificar Cátedra </label>
+		<label><?php echo '<a href="../lista_catedras" title="Ir la página anterior">Cátedras/</a>';?>Modificar Cátedra</label>
  </div>
   <!-- Contenido pestaña crear nueva catedra  -->
   	<div id="div-form-nuevo" class="form-container">

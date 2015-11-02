@@ -88,8 +88,7 @@ class Crear_nueva_guia extends CI_Controller {
     }
 
     /**
-     * Controlador de la pagina de seleccion de catedra-guia-alumno
-     *  
+     * Controlador 
      * En POST se pueden mandar selecciones default: carrera (codigo), catedra (codigo), guia (id), alumno (lu)
      * 
      * @param $selects array - Arreglo con las opciones seleccionadas por defecto (ej: $selects['carrera'] = codigo)
@@ -190,6 +189,7 @@ class Crear_nueva_guia extends CI_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_rules('carrera', 'Carrera', 'required|integer');
         $this->form_validation->set_rules('catedra', 'Cátedra', 'required|integer');
+        $this->form_validation->set_rules('nro', 'Número de Guía', 'required|integer');
         $this->form_validation->set_rules('guia', 'Nombre de Guía', 'trim|required');
 
         if (!$this->form_validation->run())  //si no verifica inputs
@@ -197,31 +197,18 @@ class Crear_nueva_guia extends CI_Controller {
             $this->session->set_flashdata('error', validation_errors());
             redirect('crear_nueva_guia/crear');
         }
+        else
+        {
 
         $cod_carr = $this->input->post('carrera'); 
         $cod_cat = $this->input->post('catedra'); 
-        $tit_guia = $this->input->post('guia');; 
+        $nro_guia = $this->input->post('nro');
+        $tit_guia = $this->input->post('guia');
         
-        // $id_guia = $this->guias_model->insert_guia_catedra($cod_cat, $tit_guia);
-        // $this->util->json_response(TRUE,STATUS_OK,$id_guia); 
-        
-        // $datos = array();
-        // $datos['cod_carr'] = $cod_carr; 
-        // $datos['cod_cat'] = $cod_cat; 
-        // $datos['tit_guia'] = $tit_guia;
-       // $this->session->set_flashdata('tit',$tit_guia);
-      //  $this->session->set_flashdata('id',$id_guia);
-       // redirect('crear_nueva_guia/agregar_items_guia');
-
-        //---------------------------------------------
-        //agregar items a guia
+       //agregar items a guia
 
         $error = $this->session->flashdata('error');
         
-
-        // $this->session->keep_flashdata('tit');
-        // $this->session->keep_flashdata('id');
-
         if($error)
             $this->view_data['error'] = $error;  
 
@@ -233,6 +220,10 @@ class Crear_nueva_guia extends CI_Controller {
          $items = $this->_itemsOrderByNom();  
          $this->view_data['items']['list']=$items; //en la view: $items['list'][indice]['id_item'].
          $this->view_data['items']['selected'] = 0;
+
+         $tituloGrupo = $this->_grupositems();
+         $this->view_data['tituloGrupo'] = $tituloGrupo;
+
  
         $this->view_data['title'] = "Agregar items a guia -  Departamento de Ciencias de la Salud";    
         $this->load->view('template/header', $this->view_data);
@@ -242,55 +233,25 @@ class Crear_nueva_guia extends CI_Controller {
         $tabla= $this->crear_tabla_items();
         $this->view_data['tabla'] = $tabla;
 
-       // $this->view_data['cod_carr'] = $cod_carr; 
-        $this->view_data['cod_cat'] = $cod_cat; 
+        $this->view_data['cod_cat'] = $cod_cat;
+        $this->view_data['nro_guia'] = $nro_guia; 
         $this->view_data['tit_guia'] = $tit_guia;
 
 
         $this->load->view('content/crear_nueva_guia/guia', $this->view_data);
 
         $this->load->view('template/footer'); 
+        }
         
     }
 
-    // public function agregar_items_guia(){
-
-    //     // $tit = $this->session->flashdata('tit');
-    //     // $this->view_data['title'] = "Agregar items a guia Departamento de Ciencias de la Salud"; 
-
-    //     //Mensaje de error: flashdata en la sesion
-    //     $error = $this->session->flashdata('error');
-        
-
-    //     $this->session->keep_flashdata('tit');
-    //     $this->session->keep_flashdata('id');
-
-    //     if($error)
-    //         $this->view_data['error'] = $error;  
-
-    //     $this->usuario->set_actividad_actual('agregar_items_guia'); 
-        
-    //     // $grupositems= $this->_grupositems(); 
-    //     // $this->view_data['grupositems']['list']=$grupositems; //en la view: $grupositems['list'][indice]['id_grupoitem'].
-
-    //      $items = $this->_itemsOrderByNom();  
-    //      $this->view_data['items']['list']=$items; //en la view: $items['list'][indice]['id_item'].
-    //      $this->view_data['items']['selected'] = 0;
- 
-    //     $this->view_data['title'] = "Agregar items a guia -  Departamento de Ciencias de la Salud";    
-    //     $this->load->view('template/header', $this->view_data);
-
-    //     $this->view_data['evaluar'] = TRUE;
-
-    //     $tabla= $this->crear_tabla_items();
-    //     $this->view_data['tabla'] = $tabla;
-
-    //     $this->load->view('content/crear_nueva_guia/guia', $this->view_data);
-
-    //     $this->load->view('template/footer'); 
-
-    // }
-    
+    /**
+     * Controlador de la pagina de muestra para creacion de guias
+     * En POST se reciben las opciones seleccionadas:
+     * carrera (codigo), catedra (codigo), 
+     * 
+     *  @access  public
+     */
     public function guardar_guia(){
 
 
@@ -305,10 +266,15 @@ class Crear_nueva_guia extends CI_Controller {
                //verifico inputs
               //  $this->form_validation->set_rules('input-cod-carr', 'input-cod-carr', 'required');
                 $this->form_validation->set_rules('input-cod-cat', 'input-cod-cat', 'required');
+                $this->form_validation->set_rules('input-nro-guia', 'input-nro-guia', 'required');
                 $this->form_validation->set_rules('input-tit-guia', 'input-tit-guia', 'required');
                 $this->form_validation->set_rules('item-id', 'item-id', 'required');
                 $this->form_validation->set_rules('item-tipo', 'item-tipo', 'required');
                 $this->form_validation->set_rules('item-texto', 'item-texto', 'required');
+                // $this->form_validation->set_rules('item-pond','item-pond', 'required');
+                $this->form_validation->set_rules('item-posic','item-posic', 'required');
+                $this->form_validation->set_rules('item-nro','item-nro', 'required');
+                $this->form_validation->set_rules('item-grupo','item-grupo', 'required');
 
                  if (!$this->form_validation->run())  //si no verifica inputs requeridos
                 {
@@ -328,11 +294,12 @@ class Crear_nueva_guia extends CI_Controller {
                     //obtengo datos de la guia y la creo
                     // $cod_carr =  $this->input->post('input-cod-carr');
                     $cod_cat =   $this->input->post('input-cod-cat');
+                    $nro_guia =  $this->input->post('input-nro-guia');
                     $tit_guia =  $this->input->post('input-tit-guia');
 
                     try {
 
-                             $guia_id = $this->guias_model->insert_guia_catedra($cod_cat, $tit_guia);
+                             $guia_id = $this->guias_model->insert_guia_catedra($cod_cat, $nro_guia, $tit_guia);
                              $this->util->json_response(TRUE,STATUS_OK,$guia_id);
 
                     } catch (Exception $e) {
@@ -359,10 +326,35 @@ class Crear_nueva_guia extends CI_Controller {
                         $valid = false;
                         $input_errors['item-texto']='Arreglo item-texto vacio'; 
                     }
-                    if (!( count($items_id)==count($items_tipo) && count($items_id)==count($items_texto) ) ) 
+                    // $items_pond = $this->input->post('item-pond');
+                    // if(!$items_pond || empty($items_pond)) 
+                    // {
+                    //     $valid = false;
+                    //     $input_errors['item-pond']='Arreglo item-pond vacio'; 
+                    // }
+                    $items_posic = $this->input->post('item-posic');
+                    if(!$items_posic || empty($items_posic)) 
                     {
                         $valid = false;
-                        $input_errors['items']='Arreglos item-id, item-texto, item-tipo de distinto tamaño';
+                        $input_errors['item-posic']='Arreglo item-posic vacio'; 
+                    }
+                    $items_nro = $this->input->post('item-nro');
+                    if(!$items_nro || empty($items_nro)) 
+                    {
+                        $valid = false;
+                        $input_errors['item-nro']='Arreglo item-nro vacio'; 
+                    }
+                    $items_grupo = $this->input->post('item-grupo');
+                    if(!$items_grupo || empty($items_grupo)) 
+                    {
+                        $valid = false;
+                        $input_errors['item-grupo']='Arreglo item-grupo vacio'; 
+                    }
+                                                    //&& count($items_id)==count($items_pond)
+                    if (!( count($items_id)==count($items_tipo) && count($items_id)==count($items_texto)  && count($items_id)==count($items_posic) && count($items_id)==count($items_nro) && count($items_id)==count($items_grupo)) ) 
+                    {
+                        $valid = false;
+                        $input_errors['items']='Arreglos de distinto tamaño';
                     }
 
 
@@ -376,34 +368,108 @@ class Crear_nueva_guia extends CI_Controller {
                         $this->util->json_response(FALSE,STATUS_INVALID_POST,$input_errors);
                     }
                     else
-                    {   //*************************************************************************
-                        
+                    {                        
                         //si el item en tipo tiene "item-nuevo" quiere decir que no esta guardado en la base de datos
                         //guardarlo en la base de datos 
                         // desp agregarlo a la guia con el nuevo id 
 
                         //una vez armado todo el arreglo de items guardar la guia
                         $arreglo_items = array();
+                        $arreglo_titulosgrupos = array();
+                        $j = 0;
                         for($i = 0; $i < count($items_id); $i++)
                         {
                             if ($items_tipo[$i]=="item-nuevo"){
                                 $id_item = $this->items_model->insert_item($items_texto[$i], 0);
-                                $arreglo_items[$i]['id_item'] = $id_item;
-                                
-                            }
-                            else{
+                                $arreglo_items[$j]['id_item'] = $id_item;
 
-                                $arreglo_items[$i]['id_item'] =$items_id[$i];
+                                // $arreglo_items[$j]['pond_item'] = $items_pond[$i];
+                                $arreglo_items[$j]['pos_item'] = $items_posic[$i];
+                                $arreglo_items[$j]['nro_item'] = $items_nro[$i];
+                                $arreglo_items[$j]['id_grupoitem'] = NULL;
+                                $j = $j +1;
+                            }                            
+                            else{
+                                if ($items_tipo[$i]=="item-bd"){
+                                    $arreglo_items[$j]['id_item'] =$items_id[$i];
+
+                                    // $arreglo_items[$j]['pond_item'] = $items_pond[$i];
+                                    $arreglo_items[$j]['pos_item'] = $items_posic[$i];
+                                    $arreglo_items[$j]['nro_item'] = $items_nro[$i];
+                                    $arreglo_items[$j]['id_grupoitem'] = NULL;
+                                    $j = $j +1;
+                                }
+                                else {
+                                    if($items_tipo[$i]=="titulo-grupo-nuevo"){
+                                        $nomb_grupoitem = $items_texto[$i];
+                                        $nro_grupoitem = $items_nro[$i];
+                                        $id_grupoitem = $this->items_model->insert_grupoitems($nomb_grupoitem,$nro_grupoitem);
+                                        $cant =  count($arreglo_titulosgrupos);
+                                        $arreglo_titulosgrupos[$cant]['nro'] =  $nro_grupoitem;
+                                        $arreglo_titulosgrupos[$cant]['id'] =  $id_grupoitem;
+
+                                    }
+                                    else {
+                                        if ($items_tipo[$i]=="item-grupo-nuevo"){
+                                            $id_item = $this->items_model->insert_item($items_texto[$i], 0);
+                                            $arreglo_items[$j]['id_item'] = $id_item;
+
+                                            // $arreglo_items[$j]['pond_item'] = $items_pond[$i];
+                                            $arreglo_items[$j]['pos_item'] = $items_posic[$i];
+                                            $arreglo_items[$j]['nro_item'] = $items_nro[$i];
+
+                                            $encontre = false;
+                                            $k=0;
+                                            $nro_grupo=0;
+                                            while (!($encontre) && $k < count($arreglo_titulosgrupos)){
+                                                if ($arreglo_titulosgrupos[$k]['nro']==$items_grupo[$i]){
+                                                    $encontre = true;
+                                                    $nro_grupo =  $arreglo_titulosgrupos[$cant]['id'];
+                                                }
+                                                $k =$k+1;
+                                            }
+
+                                            $arreglo_items[$j]['id_grupoitem'] = $nro_grupo;
+                                            $j = $j +1;
+                                        }                            
+                                        else{
+                                            if ($items_tipo[$i]=="item-grupo-bd"){
+                                                $arreglo_items[$j]['id_item'] =$items_id[$i];
+
+                                                // $arreglo_items[$j]['pond_item'] = $items_pond[$i];
+                                                $arreglo_items[$j]['pos_item'] = $items_posic[$i];
+                                                $arreglo_items[$j]['nro_item'] = $items_nro[$i];
+
+                                                $encontre = false;
+                                                $k=0;
+                                                $nro_grupo=0;
+                                                while (!($encontre) && $k < count($arreglo_titulosgrupos)){
+                                                    if ($arreglo_titulosgrupos[$k]['nro']==$items_grupo[$i]){
+                                                        $encontre = true;
+                                                        $nro_grupo =  $arreglo_titulosgrupos[$cant]['id'];
+                                                    }
+                                                    $k =$k+1;
+                                                }
+
+                                                $arreglo_items[$j]['id_grupoitem'] = $nro_grupo;
+                                                    $j = $j +1;
+                                            }
+                                        }
+
+
+                                    }
+
+                                }
                                // $arreglo_items[$i]['texto'] = $items_texto[$i];
                             }
-                            $arreglo_items[$i]['pos_item'] = $i+1;
-                            $arreglo_items[$i]['nro_item'] = $i+1;
+                            
+                            
                         }
                         
                         for($j = 0; $j < count($arreglo_items); $j++){
                             try {
-
-                             $this->guias_model->vincular_item_guia($arreglo_items[$j]['id_item'], $guia_id,$arreglo_items[$j]['pos_item'],$arreglo_items[$j]['nro_item']);
+                                                                                                                //$arreglo_items[$j]['pond_item'],
+                             $this->guias_model->vincular_item_guia($arreglo_items[$j]['id_item'], $guia_id,$arreglo_items[$j]['pos_item'],$arreglo_items[$j]['nro_item'],$arreglo_items[$j]['id_grupoitem']);
                       
                             } catch (Exception $e) {
 
@@ -421,34 +487,27 @@ class Crear_nueva_guia extends CI_Controller {
                         $this->load->view('template/footer'); 
 
 
-                        //Guardar guia y sus items mediante el modelo (operacion atomica, si falla, lanza excepcion)
-                        try {
-
-                            // $examen = $this->examenes_model->guardar_examen($id_guia,$cod_cat,$lu_alu,$this->legajo,$timestamp,$calif_exam,$obs_exam,$items,$porc_exam);
-                            //$examen['id_exam'] = $id_exam;
-                            // $this->util->json_response(TRUE,STATUS_OK,$examen); //no mandar el JSON tal cual la BD por seguridad??
-
-
-                        } catch (Exception $e) {
-
-                        }
+                       
                     }
-                }
-       //  $arreglo_items = $_POST['item-id'];
-
-     
+                }     
         
     }
 
     }
 
 
-
+    /**
+     * Controlador de la pagina de muestra para creacion de guias
+     * En POST se reciben las opciones seleccionadas:
+     * carrera (codigo), catedra (codigo), 
+     * 
+     *  @access  private
+     */
     private function crear_tabla_items(){
        
         $this->load->library('table');
         
-        $this->table->set_heading('Nro', 'Texto', 'id', 'New','Eliminar');
+        $this->table->set_heading('Nro', 'Texto',' % ','Acción');
         
         $template= array ('table_open'  => '<table id="lista_items_guia" class="table table-striped table-bordered  table-condensed" cellspacing="5" width="100%">');
         $this->table->set_template($template);

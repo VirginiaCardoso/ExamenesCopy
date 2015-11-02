@@ -52,7 +52,7 @@ class Alumnos extends CI_Controller {
 
     public function nuevo_alumno(){
 
-             $this->view_data['title'] = "Administrar Alumnos  - Departamento de Ciencias de la Salud";          
+             $this->view_data['title'] = "Administrar Estudiantes  - Departamento de Ciencias de la Salud";          
         $this->load->view('template/header', $this->view_data);
 
         $this->usuario->set_actividad_actual('nuevo_alumno');
@@ -151,12 +151,12 @@ private function mostrar_tabla_alumnos(){
 
         $this->load->library('table');
         
-        $this->table->set_heading('Nro Libreta', 'Apellido', 'Nombre', 'Dni','Acción', 'Modificar', 'Eliminar');
+        $this->table->set_heading('Apellido', 'Nombre', 'Nro Libreta', 'Dni','Acción', 'Modificar', 'Eliminar');
         foreach ($alumnos as $alu) {
         
-            $this->table->add_row($alu['lu_alu'], 
-                                  $alu['apellido_alu'], 
+            $this->table->add_row($alu['apellido_alu'], 
                                   $alu['nom_alu'], 
+                                  $alu['lu_alu'], 
                                   $alu['dni_alu'], 
                                   " ",
                                   site_url('alumnos/modificar_alumno/'.$alu['lu_alu']),
@@ -238,7 +238,7 @@ private function mostrar_tabla_alumnos(){
 
           $this->view_data['alumno'] = $alumno;
           
-          $this->view_data['title'] = "Administrar Alumnos  - Departamento de Ciencias de la Salud";          
+          $this->view_data['title'] = "Administrar Estudiantes  - Departamento de Ciencias de la Salud";          
           $this->load->view('template/header', $this->view_data);
 
         $this->usuario->set_actividad_actual('nuevo_alumno');
@@ -334,7 +334,7 @@ private function mostrar_tabla_alumnos(){
      */
     public function lista_alumnos()
     {
-       $this->view_data['title'] = "Administrar Alumnos  - Departamento de Ciencias de la Salud";          
+       $this->view_data['title'] = "Administrar Estudiantes  - Departamento de Ciencias de la Salud";          
         $this->load->view('template/header', $this->view_data);
 
         $this->usuario->set_actividad_actual('administrar_alumnos');

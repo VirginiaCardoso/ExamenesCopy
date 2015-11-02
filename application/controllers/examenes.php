@@ -81,7 +81,7 @@ class Examenes extends CI_Controller {
 
         $this->load->library('table');
         
-        $this->table->set_heading('Fecha', 'Alumno', 'Guía', 'Cátedra','Calificación','Link','PDF');
+        $this->table->set_heading('Fecha', 'Estudiante', 'Guía', 'Cátedra','Calificación','Link','PDF');
         foreach ($examenes as $exam) {
             $fecha_hora = explode(" ", $exam['fecha']);
             $fecha = $this->util->YMDtoDMY($fecha_hora[0])." ".$fecha_hora[1];
@@ -134,7 +134,7 @@ class Examenes extends CI_Controller {
 
         $this->load->library('table');
         
-        $this->table->set_heading('Fecha', 'Alumno', 'Guía', 'Cátedra','Calificación','Link','PDF');
+        $this->table->set_heading('Fecha', 'Estudiante', 'Guía', 'Cátedra','Calificación','Link','PDF');
         foreach ($examenes as $exam) {
             $fecha_hora = explode(" ", $exam['fecha']);
             $fecha = $this->util->YMDtoDMY($fecha_hora[0])." ".$fecha_hora[1];

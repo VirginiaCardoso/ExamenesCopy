@@ -38,7 +38,7 @@
 
 <div id="div-botonera" class="div-container">
 	<div class="div-titulo">
-		<label>Administrar (<?php echo $privilegio_user;?>) </label>
+		<label><!-- Administrar --><!--  (<?php echo $privilegio_user;?>) --> </label>
 	</div>
 	<div class="row row-botonera row-botonera-fila1">
 		<div class="col-xs-12 col-boton">
@@ -47,7 +47,7 @@
 	</div>	
 	<div class="row row-botonera row-botonera-fila1">
 		<div class="col-xs-12 col-boton">
-			<a href="<?php echo site_url('catedras/lista_catedras');?>" class="btn btn-primary btn-lg btn-block"  <?php if ($privilegio_user!=2) {echo "disabled";}?>>Catedras</a>
+			<a href="<?php echo site_url('catedras/lista_catedras');?>" class="btn btn-primary btn-lg btn-block"  <?php if ($privilegio_user!=2) {echo "disabled";}?>>Cátedras</a>
 		</div>
 	</div>
 	<div class="row row-botonera row-botonera-fila1">
@@ -57,7 +57,7 @@
 	</div>
 	<div class="row row-botonera row-botonera-fila1">
 		<div class="col-xs-12 col-boton">
-			<a href="<?php echo site_url('alumnos/lista_alumnos');?>" class="btn btn-primary btn-lg btn-block" <?php if ($privilegio_user!=2) {echo "disabled";} ?> >Alumnos</a>
+			<a href="<?php echo site_url('alumnos/lista_alumnos');?>" class="btn btn-primary btn-lg btn-block" <?php if ($privilegio_user!=2) {echo "disabled";} ?> >Estudiantes</a>
 		</div>
 	</div>
 	

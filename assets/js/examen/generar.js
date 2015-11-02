@@ -38,11 +38,14 @@ function inicializar_selects() {
 	 	$('select').addClass('select-mobile');
 
 	 	$('#select-carrera').prepend('<option value="'+NO_SELECTED+'" disabled>Seleccione una Carrera</option>');
-	 	$('#select-item').prepend('<option value="'+NO_SELECTED+'" disabled>Seleccione un Item</option>');
+	 	$('#select-periodo').prepend('<option value="'+NO_SELECTED+'" disabled>Seleccione un Período</option>');
 	 	$('#select-catedra').prepend('<option value="'+NO_SELECTED+'" disabled>Seleccione un Cátedra</option>');
 	 	$('#select-guia').prepend('<option value="'+NO_SELECTED+'" disabled>Seleccione una Guía</option>');
-	 	$('#select-alumno').prepend('<option value="'+NO_SELECTED+'" disabled>Seleccione un Alumno</option>');
+	 	$('#select-alumno').prepend('<option value="'+NO_SELECTED+'" disabled>Seleccione un Estudiante</option>');
 	 	$('#select-docente').prepend('<option value="'+NO_SELECTED+'" disabled>Seleccione un Docente</option>');
+	 	$('#select-year').prepend('<option value="'+NO_SELECTED+'" disabled>Seleccione Año</option>');
+	 	$('#select-item').prepend('<option value="'+NO_SELECTED+'" disabled>Seleccione Item</option>');
+	 	$('#select-item-grupo').prepend('<option value="'+NO_SELECTED+'" disabled>Seleccione Item</option>');
 
 	 	if($('#select-guia').data('selected') == NO_SELECTED) {
 	 		$('#select-guia').val(NO_SELECTED);
@@ -56,11 +59,29 @@ function inicializar_selects() {
 
 		$('#select-carrera, #select-catedra').prepend('<option></option>');		
 
+		if($('#select-periodo').data('selected') == -1) {
+			$('#select-periodo').prepend('<option selected="selected"></option>');
+		}
+		else {
+			$('#select-periodo').prepend('<option></option>');
+		}
 		if($('#select-item').data('selected') == -1) {
 			$('#select-item').prepend('<option selected="selected"></option>');
 		}
 		else {
 			$('#select-item').prepend('<option></option>');
+		}
+		if($('#select-item-grupo').data('selected') == -1) {
+			$('#select-item-grupo').prepend('<option selected="selected"></option>');
+		}
+		else {
+			$('#select-item-grupo').prepend('<option></option>');
+		}
+		if($('#select-year').data('selected') == -1) {
+			$('#select-year').prepend('<option selected="selected"></option>');
+		}
+		else {
+			$('#select-year').prepend('<option></option>');
 		}
 
 		if($('#select-guia').data('selected') == -1) {
@@ -85,10 +106,13 @@ function inicializar_selects() {
 		
 		//Inicialización gráfica de los selects personalizados
 		inicializar_select('select-carrera', 'Seleccione una Carrera');
+		inicializar_select('select-periodo', 'Seleccione un Período');
+		inicializar_select('select-year', 'Seleccione un Año');
 		inicializar_select('select-item', 'Seleccione un Item');
+		inicializar_select('select-item-grupo', 'Seleccione un Item');
 		inicializar_select('select-catedra', 'Seleccione una Cátedra');
 		inicializar_select('select-guia', 'Seleccione una Guía');
-		inicializar_select('select-alumno', 'Seleccione un Alumno');
+		inicializar_select('select-alumno', 'Seleccione un Estudiante');
 		inicializar_select('select-docente', 'Seleccione un Docente');
 	}
 
@@ -118,7 +142,10 @@ function ajustar_ancho_selects() {
 	var ancho_control = (ancho_main_content[0] - ancho_main_content[1] - ancho_main_content[2]) * 0.8; // 80% del #div-main-content (ancho interior = ancho total - paddings - bordes)
 
 	$("#select-carrera").api_set_css("width", ancho_control);
- 	$("#select-item").api_set_css("width", ancho_control);
+ 	$("#select-periodo").api_set_css("width", ancho_control/2.9);
+ 	$("#select-year").api_set_css("width", ancho_control/3);
+ 	$("#select-item").api_set_css("width", ancho_control/3.45);
+ 	$("#select-item-grupo").api_set_css("width", ancho_control/3.45);
 	$("#select-catedra").api_set_css("width", ancho_control);
 	$("#select-guia").api_set_css("width", ancho_control);
 	$("#select-alumno").api_set_css("width", ancho_control);
@@ -127,7 +154,8 @@ function ajustar_ancho_selects() {
 	$(".form-group-generar-fecha").css("width", ancho_control);
 
 	$('#div-form').css('maxWidth', $("#select-carrera").api_get_css("width"));
- 	$('#div-form').css('maxWidth', $("#select-item").api_get_css("width"));
+ 	// $('#div-form').css('maxWidth', $("#select-periodo").api_get_css("width"));
+ 	// $('#div-form').css('maxWidth', $("#select-year").api_get_css("width"));
 }
 
 /*	EVENT HANDLERS */
@@ -262,7 +290,7 @@ function event_handlers_selects() {
 							if(es_dispositivo_movil()) {
 
 							 	$('#select-guia').append('<option value="'+NO_SELECTED+'" disabled>Seleccione una Guía</option>');
-							 	$('#select-alumno').append('<option value="'+NO_SELECTED+'" disabled>Seleccione un Alumno</option>');
+							 	$('#select-alumno').append('<option value="'+NO_SELECTED+'" disabled>Seleccione un Estudiante</option>');
 							}
 							else {
 								$('#select-guia, #select-alumno').prepend('<option></option>');

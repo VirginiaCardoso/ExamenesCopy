@@ -30,7 +30,7 @@ function crearDataTable() {
       				var newData = '';
      
   						newData += '<div class="contenedor-botones">'; 
-  					 newData += '<div class="boton-modificar"><a href="'+rowData[4]+'" class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="bottom" title="Alumnos" ><span class="glyphicon glyphicon-list-alt grande"></span> </a></div>';		
+  					 newData += '<div class="boton-modificar"><a href="'+rowData[4]+'" class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="bottom" title="Estudiantes" ><span class="glyphicon glyphicon-list-alt grande"></span> </a></div>';		
   					 newData += '<div class="boton-modificar"><a href="'+rowData[5]+'" class="btn btn-info btn-xs" data-toggle="tooltip" data-placement="bottom" title="Vincular Docentes" ><span class="glyphicon glyphicon-user grande"></span> </a></div>';		
   					 newData += '<div class="boton-modificar"><a href="'+rowData[6]+'" class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="bottom" title="Modificar datos" ><span class="glyphicon glyphicon-edit grande"></span> </a></div>';	
   					 newData += '<div class="boton-modificar"><a href="'+rowData[7]+'" class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="bottom" title="Eliminar" ><span class="glyphicon glyphicon-trash grande"></span> </a></div>';	

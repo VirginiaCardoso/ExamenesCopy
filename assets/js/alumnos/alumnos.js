@@ -13,7 +13,7 @@ $(document).ready(function () {
             "</form><div class='respuesta'></div></div>").dialog({
  
                 resizable:false,
-                title:'Editar alumno.',
+                title:'Editar Estudiante.',
                 height:300,
                 width:450,
                 modal:true,
@@ -39,10 +39,10 @@ $(document).ready(function () {
  
                                     $('.edit_modal').dialog("close");
  
-                                    $("<div class='edit_modal'>El alumno fué editado correctamente</div>").dialog({
+                                    $("<div class='edit_modal'>El estudiante fué editado correctamente</div>").dialog({
  
                                         resizable:false,
-                                        title:'Alumno editado.',
+                                        title:'Estudiante editado.',
                                         height:200,
                                         width:450,
                                         modal:true

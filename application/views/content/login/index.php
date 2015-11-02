@@ -17,7 +17,6 @@
 
 		<input id="input-legajo" name="legajo" class="form-control" type="text"  placeholder="Legajo"/>
 		<input id="input-password" name="password" class="form-control" type="password"  placeholder="Contraseña"/>
-
 		
 		<?php 
 			if (isset($error_login))

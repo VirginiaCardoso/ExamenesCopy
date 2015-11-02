@@ -389,6 +389,7 @@ class Examen extends CI_Controller {
                                             'nro' => $nro_seccion.'.'.$nro_grupo.'.'.$item_completo['nro_item'],
                                             'nom' => $item_completo['nom_item'],
                                             'id' => $item_completo['id_item'],
+                                            // 'pon' => $item_completo['pon_item'],
                                             'solo_texto' => $item_completo['solo_texto']);
                             if($examen) 
                             {    
@@ -412,6 +413,7 @@ class Examen extends CI_Controller {
                                     'nro' => $nro_seccion.'.'.$item_completo['nro_item'],
                                     'nom' => $item_completo['nom_item'],
                                     'id' => $item_completo['id_item'],
+                                    // 'pon' => $item_completo['pon_item'],
                                     'solo_texto' => $item_completo['solo_texto']);  
                         if($examen) 
                         {    
@@ -450,6 +452,7 @@ class Examen extends CI_Controller {
                                     'nro' => $nro_grupo.'.'.$item_completo['nro_item'],
                                     'nom' => $item_completo['nom_item'],
                                     'id' => $item_completo['id_item'],
+                                    // 'pon' => $item_completo['pon_item'],
                                     'solo_texto' => $item_completo['solo_texto']);
                     if($examen) 
                     {    
@@ -475,6 +478,7 @@ class Examen extends CI_Controller {
                                     'nro' => $item_completo['nro_item'],
                                     'nom' => $item_completo['nom_item'],
                                     'id' => $item_completo['id_item'],
+                                    // 'pon' => $item_completo['pon_item'],
                                     'solo_texto' => $item_completo['solo_texto']);
                 if($examen) 
                 {    
@@ -585,13 +589,13 @@ class Examen extends CI_Controller {
         $lu_alu = $this->input->post('alumno');
         if(!$lu_alu || $lu_alu==NO_SELECTED)
         {
-            $this->session->set_flashdata('error', 'Alumno inválido');
+            $this->session->set_flashdata('error', 'Estudiante inválido');
             redirect('examen/generar');
         }
         $alumno = $this->alumnos_model->get_alumno_catedra($lu_alu,$cod_cat);
         if(!$alumno)
         {
-            $this->session->set_flashdata('error', 'Alumno inválido');
+            $this->session->set_flashdata('error', 'Estudiante inválido');
             redirect('examen/generar');
         }
         else
@@ -676,6 +680,9 @@ class Examen extends CI_Controller {
                 $this->form_validation->set_rules('fecha', 'fecha', 'required');
                 $this->form_validation->set_rules('examen-calif', 'examen-calif', 'required|integer');
                 $this->form_validation->set_rules('examen-porc', 'examen-porc', 'numeric');
+             // $this->form_validation->set_rules('examen-nota', 'examen-nota', 'numeric');
+             // $this->form_validation->set_rules('item-pond', 'item-pond', 'numeric');
+             // $this->form_validation->set_rules('item-pond[]', 'item-pond[]', 'numeric');
                 $this->form_validation->set_rules('item-id', 'item-id', 'required');
                 $this->form_validation->set_rules('item-id[]', 'item-id[]', 'required|integer');
                 $this->form_validation->set_rules('item-estado', 'item-estado', 'required');
@@ -736,13 +743,13 @@ class Examen extends CI_Controller {
                     if(!$lu_alu || $lu_alu==NO_SELECTED)
                     {
                         $valid = false;
-                        $input_errors['alumno']='Alumno invalido';
+                        $input_errors['alumno']='Estudiante invalido';
                     }
                     if(!$this->alumnos_model->check_alumno_catedra($lu_alu,$cod_cat))
                     {
                         //alumno no asociado a catedra (o no existe)
                         $valid = false;
-                        $input_errors['alumno']='Alumno no asociado a la catedra';
+                        $input_errors['alumno']='Estudiante no asociado a la catedra';
                     }
                     //GUIA (chequea que sea valido, y de la catedra)
                     $id_guia = $this->input->post('guia');
@@ -790,6 +797,9 @@ class Examen extends CI_Controller {
                     $porc_exam = $this->input->post('examen-porc');
                     //VALIDAR QUE SEA ENTRE 0 Y 100??
 
+                     //PONDERACION (no es requerido, validado en form_validation)
+                    // $pond_exam = $this->input->post('examen-pond');
+
                     //CALIFICACION GENERAL (requerida, valor int, validado en form_validation)
                     $calif_exam = $this->input->post('examen-calif');
                     //VALIDAR QUE SEA ENTRE 0 Y 2??
@@ -810,13 +820,14 @@ class Examen extends CI_Controller {
                         for($i = 0; $i < count($items_id); $i++)
                         {
                             $items[$i]['id'] = $items_id[$i];
+                            // $items[$i]['pon'] = $items_pon[$i];
                             $items[$i]['estado'] = $items_estado[$i];
                             $items[$i]['obs'] = $items_obs[$i];
                         }
                         
                         //Guardo el examen y sus items mediante el modelo (operacion atomica, si falla, lanza excepcion)
                         try {
-                            $examen = $this->examenes_model->guardar_examen($id_guia,$cod_cat,$lu_alu,$this->legajo,$timestamp,$calif_exam,$obs_exam,$items,$porc_exam);
+                            $examen = $this->examenes_model->guardar_examen($id_guia,$cod_cat,$lu_alu,$this->legajo,$timestamp,$calif_exam,$obs_exam,$items,$porc_exam); //,$pond_exam
                             //$examen['id_exam'] = $id_exam;
                             $this->util->json_response(TRUE,STATUS_OK,$examen); //no mandar el JSON tal cual la BD por seguridad??
 
@@ -839,7 +850,7 @@ class Examen extends CI_Controller {
                                     break;
                                 case ERROR_NO_INSERT_ITEMEXAM:
                                     $error['error_msj'] = "Uno o más items no pudieron ser archivados en la base de datos. El examen no fue guardado";
-                                    $this->util->json_response(FALSE,STATUS_NO_INSERT,$error);
+                                    $this->util->json_response(FALSE,STATUS_NO_INSERT2,$error);
                                     break;
 
                                 default:

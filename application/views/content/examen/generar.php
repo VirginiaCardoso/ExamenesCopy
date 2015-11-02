@@ -152,7 +152,7 @@
 		</div>
 		<div class="form-group-generar">
 			<div>
-				<label for="select-alumno" class="control-label">Alumno</label>
+				<label for="select-alumno" class="control-label">Estudiante</label>
 			</div>
 			<div>	
 		<?php
@@ -182,7 +182,7 @@
 			}
 		?>
 			</div>
-			<label id="error-alumno" class="label-error errores">Alumno inválido</label>
+			<label id="error-alumno" class="label-error errores">Estudiante inválido</label>
 		</div>
 
 		<div class="form-group-buttons">

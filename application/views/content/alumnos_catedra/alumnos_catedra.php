@@ -1,7 +1,7 @@
 <!--
-	AUTOR		Fernando Andrés Prieto
-	AUTOR		Diego Martín Schwindt
-	COPYRIGHT	Marzo, 2014 - Departamento de Ciencias e Ingeniería de la Computación - UNIVERSIDAD NACIONAL DEL SUR 
+	AUTOR		Cardoso Virginia
+	AUTOR		Matias Marzullo
+	COPYRIGHT	Octubre, 2015 - Departamento de Ciencias e Ingeniería de la Computación - UNIVERSIDAD NACIONAL DEL SUR 
 -->
 
 <link type="text/css" href="<?php echo base_url('assets/css/datepicker/css/bootstrap-datetimepicker.min.css'); ?>" rel="stylesheet" media="screen"/>
@@ -46,7 +46,7 @@
 <div id="div-form" class="form-container">
 
 	<div class="div-titulo">
-		<label>Agregar Alumnos a Cátedra: <?php echo $catedra['cod_cat'].' - '.$catedra['nom_cat']; ?></label> 
+		<label><?php echo '<a href="../lista_catedras" title="Ir la página anterior">Cátedras/</a>';?>Agregar Estudiantes a Cátedra: <?php echo $catedra['cod_cat'].' - '.$catedra['nom_cat']; ?></label> 
 	</div>
 
 	<?php $cat = $catedra['cod_cat']; ?>
@@ -82,17 +82,35 @@
 				echo '</select>';
 			}
 		?>
+
+	<?php $actual = date("Y") ?>
+		  <select id='select-year' name='year' data-live-search='true' class='select' /> 
+		    <option><?php echo $actual ?></option>       
+		    <option><?php echo $actual+1 ?></option>
+		    <option><?php echo $actual+2 ?></option>
+		    <option><?php echo $actual+3 ?></option>
+		    <option><?php echo $actual-1 ?></option>      
+		  </select>
+		  <select id='select-periodo' name='periodo' data-live-search='true' class='select' /> 
+		    <option>Anual</option>
+		    <option>Primer Cuatrimestre</option>       
+		    <option>Segundo Cuatrimestre</option> <!--  
+		    <option>Tercer Cuatrimestre</option>       
+		    <option>Cuarto Cuatrimestre</option>  -->            
+		  </select>
+		
 			</div>
-			<label id="error-alumno" class="label-error errores">Alumno inválido</label>
+			<label id="error-alumno" class="label-error errores">Estudiante inválido</label>
 		</div>
+		
 
 	<!-- 	<div class="form-group-buttons">
 			<a id="btn-cancelar" href="<?php echo site_url('home');?>" class="btn btn-default">Cancelar</a> -->
-			   <button id="btn-submit" name="boton" style="margin-left: 5px" class="btn btn-primary" type="submit">Agregar</button>
+			   <button id="btn-submit" name="boton" style="margin-left: 5px;margin-top: 39px;" class="btn btn-primary" type="submit">Agregar</button>
 	<!-- 	</div> -->
-
+</div>	
 	</form>
-
+	<div>	
  <!-- TABLA DE ALUMNOS DE LA CÁTEDRA  -->
  <div id="lista-usuarios" >
     	

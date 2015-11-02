@@ -39,6 +39,7 @@
  - LOGIN:
 	Aplicar estilo a los errores de validacion y de error al loguearse
   
+  xss_clean
 
 ******* PUESTA EN PRODUCCION ************************
   - Revisar CodeIgniter / Instrucciones de instalación (HTML)

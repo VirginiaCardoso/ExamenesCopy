@@ -238,7 +238,7 @@
 
 		<tr>
 			<td class="div-titulo">
-				Alumno:
+				Estudiante:
 			</td>
 			<td>
 				<?php echo $alumno['lu_alu'].' - '.$alumno['apellido_alu'].', '.$alumno['nom_alu']; ?>

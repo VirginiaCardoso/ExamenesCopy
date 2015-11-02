@@ -122,7 +122,7 @@ class Alumnos_model extends CI_Model {
 	 */
 	public function get_alumnos_catedra($cod_catedra)
 	{
-		$query_string = "SELECT DISTINCT lu_alu,apellido_alu,nom_alu,dni_alu
+		$query_string = "SELECT DISTINCT lu_alu,apellido_alu,nom_alu,dni_alu,year_alu_cat,periodo_alu_cat
 				FROM alumnos NATURAL JOIN alumnos_catedras 
 				WHERE cod_cat = ? ORDER BY lu_alu ASC";
 		$query = $this->db->query($query_string,array($cod_catedra));
@@ -185,27 +185,28 @@ class Alumnos_model extends CI_Model {
 	 * @param 	$cod_cat int id de la guia
 	 *
 	 */
-	public function vincular_alumno_catedra($lu_alu,$cod_cat)//($id_item, $id_guia)
+	public function vincular_alumno_catedra($lu_alu, $anio_alu_cat, $per_alu_cat, $cod_cat)//($id_item, $id_guia)
 	{
 
 		//Verifico que no exista el alumno en la catedra
 		$query_string = "SELECT lu_alu FROM alumnos_catedras
-				WHERE lu_alu = ? AND cod_cat = ?";
-		$query = $this->db->query($query_string,array($lu_alu,$cod_cat));
+				WHERE lu_alu = ? AND cod_cat = ? AND year_alu_cat = ? AND periodo_alu_cat = ?";
+		$query = $this->db->query($query_string,array($lu_alu,$cod_cat,$anio_alu_cat, $per_alu_cat));
 		if($this->db->affected_rows() > 0) 
 		{
 			$exam = $query->row_array();	
 			throw new Exception(ERROR_REPETIDO);
 		}	
 		//Inserto info en la tabla items_guias
-		$query_string = "INSERT INTO alumnos_catedras(lu_alu,cod_cat) VALUES (?,?);";
+		$query_string = "INSERT INTO alumnos_catedras(lu_alu,cod_cat,year_alu_cat,periodo_alu_cat) VALUES (?,?,?,?);";
 
-		$this->db->query($query_string,array($lu_alu,$cod_cat));
+		$this->db->query($query_string,array($lu_alu,$cod_cat,$anio_alu_cat, $per_alu_cat));
 	
 
 	}
 
-		/**
+		/**  year_alu_cat VARCHAR(4) NOT NULL,
+	
 	 *	Elimina un alumno de cátedra.
 	 *
 	 * @access	public

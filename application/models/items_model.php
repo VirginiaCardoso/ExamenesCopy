@@ -59,6 +59,22 @@ class Items_model extends CI_Model {
 		return $id_item;
 	
 	}
+
+	public function insert_grupoitems($nomb_grupoitem,$nro_grupoitem){
+		$query_string = "INSERT INTO grupositems(nom_grupoitem, nro_grupoitem) VALUES (?,?);";
+
+		$query = $this->db->query($query_string,array($nomb_grupoitem, $nro_grupoitem));
+
+		//controlo que se haya insertado nueva guia
+		if($this->db->affected_rows() == 0)
+		{
+			throw new Exception(ERROR_NO_INSERT_EXAM); //cambiar error
+		}
+		$id_grupoitem = $this->db->insert_id();
+		
+		return $id_grupoitem;
+
+	}
 	
 
 	

@@ -493,11 +493,11 @@ class Catedras extends CI_Controller {
 
         $this->load->library('table');
         
-        $this->table->set_heading('Nro Libreta', 'Apellido', 'Nombre', 'Dni','Acción', 'Eliminar');
+        $this->table->set_heading('Período', 'Nombre','Nro Libreta', 'Dni','Acción', 'Eliminar');
         foreach ($alu_cat as $alu) {   
-            $this->table->add_row($alu['lu_alu'], 
-                                  $alu['apellido_alu'], 
-                                  $alu['nom_alu'], 
+            $this->table->add_row($alu['year_alu_cat'].' - '.$alu['periodo_alu_cat'],
+                                  $alu['apellido_alu'].', '.$alu['nom_alu'], 
+                                  $alu['lu_alu'],    
                                   $alu['dni_alu'], 
                                   " ",
                                   site_url('catedras/eliminar_alu_cat/'.$alu['lu_alu'].'/'.$cod_cat)
@@ -540,10 +540,12 @@ class Catedras extends CI_Controller {
       // $cod_cat = $this->input->post('catedra');
       // @param   $alu int alu referencia al lU del alumno
       $lu_alu = $this->input->post('alumno');
-      $alumno = $this->alumnos_model->vincular_alumno_catedra($lu_alu, $cod_cat);
+      $anio_alu_cat = $this->input->post('year');
+      $per_alu_cat = $this->input->post('periodo');
+      $alumno = $this->alumnos_model->vincular_alumno_catedra($lu_alu, $anio_alu_cat, $per_alu_cat, $cod_cat);
         if(!$lu_alu || $lu_alu==NO_SELECTED)
         {
-            $this->session->set_flashdata('error', 'Alumno inválido');
+            $this->session->set_flashdata('error', 'Estudiante inválido');
             redirect('catedras/alumnos_catedra');
         }
 
@@ -603,7 +605,7 @@ class Catedras extends CI_Controller {
 
         if(!$lu_alu)   //chequea que $id esté y sea sólo numeros
             {
-                $this->session->set_flashdata('error', 'Lu de Alumno inexistente');
+                $this->session->set_flashdata('error', 'Lu de Estudiante inexistente');
                 redirect('catedras/lista_catedras');
             }
       if(!$cod_cat)   //chequea que $id esté y sea sólo numeros
@@ -740,7 +742,7 @@ class Catedras extends CI_Controller {
       $docente = $this->catedras_model->vincular_docente_catedra($leg_doc, $cod_cat);
         if(!$leg_doc || $leg_doc==NO_SELECTED)
         {
-            $this->session->set_flashdata('error', 'Alumno inválido');
+            $this->session->set_flashdata('error', 'Estudiante inválido');
             redirect('catedras/docentes_catedra');
         }
 
@@ -800,7 +802,7 @@ class Catedras extends CI_Controller {
 
         if(!$leg_doc)   //chequea que $id esté y sea sólo numeros
             {
-                $this->session->set_flashdata('error', 'Lu de Alumno inexistente');
+                $this->session->set_flashdata('error', 'Lu de Estudiante inexistente');
                 redirect('catedras/lista_catedras');
             }
       if(!$cod_cat)   //chequea que $id esté y sea sólo numeros

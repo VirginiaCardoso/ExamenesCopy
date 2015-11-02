@@ -3,15 +3,17 @@
 <!--
 	AUTOR		Fernando Andrés Prieto
 	AUTOR		Diego Martín Schwindt
-	COPYRIGHT	Marzo, 2014 - Departamento de Ciencias e Ingeniería de la Computación - UNIVERSIDAD NACIONAL DEL SUR 
+	AUTOR		Virginia Cardoso
+	AUTOR		Matias Marzullo
+	COPYRIGHT	Octubre, 2015 - Departamento de Ciencias e Ingeniería de la Computación - UNIVERSIDAD NACIONAL DEL SUR 
 -->
 	<head>
 		   	<meta charset="utf-8">
 		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 		    <meta name="viewport" content="width=device-width, initial-scale=1">
+			<link rel="icon" href="<?php echo base_url('assets/images/favicon.ico');?>" type="image/gif">
 
 		    <title><?php echo $title; ?></title>	   	
-		
 		
 
 		    <link type="text/css" href="<?php echo base_url('assets/css/bootstrap.css'); ?>" rel="stylesheet" />

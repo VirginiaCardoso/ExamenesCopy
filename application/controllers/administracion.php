@@ -162,8 +162,8 @@ class Administracion extends CI_Controller {
 
         $this->load->library('form_validation');
         $this->form_validation->set_rules('legajo', 'Legajo', 'trim|required|integer');
-        $this->form_validation->set_rules('pass', 'Contraseña', 'trim|required|matches[passconf]|md5');
-        $this->form_validation->set_rules('passconf', 'Confirmar Contraseña', 'trim|required');
+        $this->form_validation->set_rules('pass', 'Contraseña', 'trim|required|min_length[8]|matches[passconf]|md5');
+        $this->form_validation->set_rules('passconf', 'Confirmar Contraseña', 'trim|required|min_length[8]');
         $this->form_validation->set_rules('apellido', 'Apellido', 'required');
         $this->form_validation->set_rules('nombre', 'Nombre', 'required');
         $this->form_validation->set_rules('dni', 'Dni', 'integer');
@@ -273,7 +273,7 @@ private function mostrar_tabla_usuarios(){
                                   //     <span class='glyphicon glyphicon-pencil' aria-hidden='true'></span>
                                   //   </a>");
                                   site_url('administracion/modificar_usuario/'.$user['leg_doc']),
-                                  site_url('administracion/modificar_contraseña/'.$user['leg_doc']),
+                                  site_url('administracion/modificarC_usuario/'.$user['leg_doc']),
                                   site_url('administracion/eliminar_usuario/'.$user['leg_doc'])
                                   );
 
@@ -371,9 +371,48 @@ private function mostrar_tabla_usuarios(){
 
         $this->load->view('template/footer');
     }
-
     /**
-     * Controlador de la pagina de creacion de un nuevo usuario
+     * Controlador de la accion de modificar un usuario
+     *  
+     * En GET (parametro) se recibe solo el id del usuario
+     *
+     *
+     * 
+     * @access  public
+     * @param   $id int leg_doc del usuario
+     */
+    public function modificarC_usuario($id)
+    {
+          $usuario = $this->docentes_model->get_docente($id);
+                          //$this->util->json_response(TRUE,STATUS_OK,$id); //no mandar el JSON tal cual la BD por seguridad??
+                          
+           if(!$usuario)   //chequea que $id esté y sea sólo numeros
+            {
+                $this->session->set_flashdata('error', 'Leg de docente inexistente');
+                redirect('administracion/usuarios');
+            }
+
+          $this->view_data['usuario'] = $usuario;
+          
+          $this->view_data['title'] = "Administrar Usuarios  - Departamento de Ciencias de la Salud";          
+        $this->load->view('template/header', $this->view_data);
+
+        $this->usuario->set_actividad_actual('nuevo_usuario');
+
+        //Mensaje de error: flashdata en la sesion
+        $error = $this->session->flashdata('error');
+        if($error)
+            $this->view_data['error'] = $error;
+        
+        $this->view_data['docente'] = $this->nom_doc." ".$this->apellido_doc;
+        $this->view_data['privilegio_user'] =  $this->privilegio;
+        $this->view_data['modificar'] = true;
+        $this->load->view('content/administracion/modificarC_usuario', $this->view_data);
+
+        $this->load->view('template/footer');
+    }
+    /**
+     * Controlador de la pagina de modificar un  usuario
      *  
      * En POST se reciben las opciones seleccionadas:
      * 
@@ -384,7 +423,7 @@ private function mostrar_tabla_usuarios(){
     {
         if(!$this->input->post()) 
         {
-            $this->session->set_flashdata('error', 'Acceso inválido a la creación de un nuevo usuario');
+            $this->session->set_flashdata('error', 'Acceso inválido a la modificación del usuario');
             redirect('administracion/usuarios');
         }
 
@@ -430,6 +469,88 @@ private function mostrar_tabla_usuarios(){
          try {
                          // $docente_act = 
                             $this->docentes_model->actualizar_docente($id,$apellido,$nom,$dni,$email,$tel,$priv);
+                            //$examen['id_exam'] = $id_exam;
+                            // $this->util->json_response(TRUE,STATUS_OK,$docente_act); //no mandar el JSON tal cual la BD por seguridad??
+                              $this->util->json_response(TRUE,STATUS_OK);
+
+          } catch (Exception $e) {
+              switch ($e->getMessage()) {
+                      case ERROR_REPETIDO:
+                      //$ld = $e->getCode();
+                      $error['error_msj'] = "El usuario con ese legajo {$id} ya ha sido guardado en la base de datos ";
+                     //$error['leg_doc'] = $ld;
+                      $this->util->json_response(FALSE,STATUS_REPEATED_POST,$error);
+                      break;
+                  // case ERROR_FALTA_ITEM:
+                  //     $error['error_msj'] = "Falta(n) item(s) de la guia. El usuario no fue guardado en la base de datos";
+                  //     $this->util->json_response(FALSE,STATUS_INVALID_PARAM,$error);
+                  //     break;
+                  // case ERROR_NO_INSERT_EXAM:
+                  //     $error['error_msj'] = "El usuario no pudo ser archivado en la base de datos";
+                  //     $this->util->json_response(FALSE,STATUS_NO_INSERT,$error);
+                  //     break;
+                   default:
+                      $error['error_msj'] = "El usuario no fue guardado en la base de datos";
+                      $this->util->json_response(FALSE,STATUS_UNKNOWN_ERROR,$error);
+                      break;
+              }
+          } 
+
+      
+        // $this->view_data['title'] = "Administrar Usuarios  - Departamento de Ciencias de la Salud";          
+        // $this->load->view('template/header', $this->view_data);
+
+        // $this->usuario->set_actividad_actual('lista_usuario');
+
+        // //Mensaje de error: flashdata en la sesion
+        // $error = $this->session->flashdata('error');
+        // if($error)
+        //     $this->view_data['error'] = $error;
+        
+        // $this->view_data['docente'] = $this->nom_doc." ".$this->apellido_doc;
+        // $this->view_data['privilegio_user'] =  $this->privilegio;
+        // $this->view_data['nuevo'] = true;
+        // $this->load->view('content/administracion/lista_usuarios', $this->view_data);
+
+        // $this->load->view('template/footer');
+           $this->view_data['modificar'] = FALSE;
+          redirect('administracion/usuarios');
+      
+    }
+
+    /**
+     * Controlador de la pagina de modificar contraseña de un usuario
+     *  
+     * En POST se reciben las opciones seleccionadas:
+     * 
+     * 
+     * @access  public
+     */
+    public function actualizarC($id)
+    {
+        if(!$this->input->post()) 
+        {
+            $this->session->set_flashdata('error', 'Acceso inválido a la modificación del usuario');
+            redirect('administracion/usuarios');
+        }
+
+        $this->load->library('form_validation');
+         $this->form_validation->set_rules('pass', 'Contraseña', 'trim|required|min_length[8]|matches[passconf]|md5');
+         $this->form_validation->set_rules('passconf', 'Confirmar Contraseña', 'trim|required|min_length[8]');
+
+      // if($this->form_validation->run() == TRUE){
+       if (!$this->form_validation->run())  //si no verifica inputs
+        {
+            $this->session->set_flashdata('error', validation_errors());
+            redirect('administracion/usuarios');
+        }
+
+        // $leg = $this->input->post('legajo'); 
+        $pass = $this->input->post('pass');
+        
+         try {
+                         // $docente_act = 
+                            $this->docentes_model->actualizarC_docente($id,$pass);
                             //$examen['id_exam'] = $id_exam;
                             // $this->util->json_response(TRUE,STATUS_OK,$docente_act); //no mandar el JSON tal cual la BD por seguridad??
                               $this->util->json_response(TRUE,STATUS_OK);

@@ -10,6 +10,11 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
+# Creamos Base de Datos
+CREATE DATABASE IF NOT EXISTS db_dcs;
+
+# selecciono la base de datos sobre la cual voy a hacer modificaciones
+USE db_dcs;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -17,7 +22,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `dcs_examenes`
+-- Base de datos: `db_dcs`
 --
 
 -- --------------------------------------------------------
@@ -223,16 +228,16 @@ CREATE TABLE IF NOT EXISTS `docentes` (
 --
 
 INSERT INTO `docentes` (`leg_doc`, `pass`, `apellido_doc`, `nom_doc`, `dni_doc`, `email_doc`, `tel_doc`, `activo`, `privilegio`) VALUES
-(123, '21232f297a57a5a743894a0e4a801fc3', 'Administrador', 'Super', 11111111, 'admin@laboratorios.dcs.uns.edu.ar', NULL, 1, 3),
-(1010, '1e48c4420b7073bc11916c6c1de226bb', 'Castaña', 'Cacho', 5654456, NULL, NULL, 0, 0),
-(2020, '7b7a53e239400a13bd6be6c91c4f6c4e', 'Mensaje', 'Manda', 12356845, NULL, NULL, 0, -1),
-(5201, '4d186321c1a7f0f354b297e8914ab240', 'Zapata', 'Juan', 10568956, 'johnzapata@uns.edu.ar', '4568746', 1, 0),
-(5555, '6074c6aa3488f3c2dddff2a7ca821aab', 'Natalia', 'Natalia', 5585585, NULL, NULL, 1, 0),
-(7865, '4d1a65f1c6d24c1f8f714fe7e31d29fc', 'Pérez', 'Marcela', 20568987, NULL, NULL, 1, 0),
-(10325, 'e10adc3949ba59abbe56e057f20f883e', 'Skinner', 'Seymour', 9125654, 'skinner@springfield.com', '(011)156-589632', 1, 2),
+-- (123, '21232f297a57a5a743894a0e4a801fc3', 'Administrador', 'Super', 11111111, 'admin@laboratorios.dcs.uns.edu.ar', NULL, 1, 3),
+-- (1010, '1e48c4420b7073bc11916c6c1de226bb', 'Castaña', 'Cacho', 5654456, NULL, NULL, 0, 0),
+-- (2020, '7b7a53e239400a13bd6be6c91c4f6c4e', 'Mensaje', 'Manda', 12356845, NULL, NULL, 0, -1),
+ (5201, '4d186321c1a7f0f354b297e8914ab240', 'Zapata', 'Juan', 10568956, 'johnzapata@uns.edu.ar', '4568746', 1, 0),
+-- (5555, '6074c6aa3488f3c2dddff2a7ca821aab', 'Natalia', 'Natalia', 5585585, NULL, NULL, 1, 0),
+ (7865, '4d1a65f1c6d24c1f8f714fe7e31d29fc', 'Pérez', 'Marcela', 20568987, NULL, NULL, 1, 0),
+-- (10325, 'e10adc3949ba59abbe56e057f20f883e', 'Skinner', 'Seymour', 9125654, 'skinner@springfield.com', '(011)156-589632', 1, 2),
 (12179, '3eb38fa8079f887324e8ee1d92b3da12', 'Steel', 'Idina', NULL, NULL, NULL, 1, 0),
 (12198, '0c4f092e9f42a14a91c0d2183e106a45', 'Stepanosky', 'Silvia', NULL, NULL, NULL, 1, 2),
-(12821, 'd419480c20f41bcd867bb4517ef14701', 'Coronel', 'Fernando', NULL, NULL, NULL, 1, 0);
+-- (12821, 'd419480c20f41bcd867bb4517ef14701', 'Coronel', 'Fernando', NULL, NULL, NULL, 1, 0);
 
 -- --------------------------------------------------------
 

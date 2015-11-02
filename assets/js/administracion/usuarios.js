@@ -29,7 +29,7 @@ $('document').ready(function()
 	// event_handlers_radio_buttons();		
 	// handler_formulario();
 	ocultar_errores();
-;
+
 	$(window).resize(); // Disparo el evento para que el contenido quede centado.
 
 	

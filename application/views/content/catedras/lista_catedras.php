@@ -25,7 +25,7 @@
 
  <div class="div-titulo">
 	<?php if(count($arreglo)>0): ?>
-		<label>Cátedras</label>
+		<label><?php echo '<a href="../administracion/admin" title="Ir la página anterior">Administración/</a>';?>Cátedras</label>
 	<?php else: ?>
 		<label>No hay cátedras cargadas en el sistema.</label>
 	<?php endif; ?>	

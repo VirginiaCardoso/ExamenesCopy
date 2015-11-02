@@ -37,7 +37,7 @@ class Examenes_model extends CI_Model {
 	 * @return	array - datos del examen id_exam,id_guia,lu_alu....
 	 *
 	 */
-	public function guardar_examen($id_guia,$cod_cat,$lu_alu,$leg_doc,$fecha,$calificacion,$obs_exam,$items,$porcentaje_exam) 
+	public function guardar_examen($id_guia,$cod_cat,$lu_alu,$leg_doc,$fecha,$calificacion,$obs_exam,$items,$porcentaje_exam)//$nota 
 	{
 		//Verifico que no exista un examen con misma guia, alumno, legajo y diferencia de fecha menor a 3 minutos
 		$query_string = "SELECT id_exam,fecha FROM examenes
@@ -67,10 +67,10 @@ class Examenes_model extends CI_Model {
 		}
 
 
-		//Inserto info en la tabla examenes
-		$query_string = "INSERT INTO examenes (id_guia,cod_cat,lu_alu,leg_doc,fecha,calificacion,obs_exam,porcentaje_exam) 
+		//Inserto info en la tabla examenes                                                                              ,nota_exam
+		$query_string = "INSERT INTO examenes (id_guia,cod_cat,lu_alu,leg_doc,fecha,calificacion,obs_exam,porcentaje_exam)  
 			 VALUES (?,?,?,?,?,?,?,?)";
-		$this->db->query($query_string,array($id_guia,$cod_cat,$lu_alu,$leg_doc,$fecha,$calificacion,$obs_exam,$porcentaje_exam));
+		$this->db->query($query_string,array($id_guia,$cod_cat,$lu_alu,$leg_doc,$fecha,$calificacion,$obs_exam,$porcentaje_exam));//,$nota
 		
 		
 		if($this->db->affected_rows() == 0)

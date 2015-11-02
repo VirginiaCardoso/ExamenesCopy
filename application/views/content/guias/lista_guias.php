@@ -25,7 +25,7 @@
 
  <div class="div-titulo">
   <?php if(count($arreglo)>0): ?>
-    <label>Guías</label>
+    <label><?php echo '<a href="../administracion/admin" title="Ir la página anterior">Administración/</a>';?>Guías</label>
   <?php else: ?>
     <label>No hay Guías cargadas en el sistema.</label>
   <?php endif; ?> 

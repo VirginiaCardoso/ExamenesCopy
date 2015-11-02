@@ -1,7 +1,9 @@
 /*	
 	AUTOR		Fernando Andrés Prieto
 	AUTOR		Diego Martín Schwindt
-	COPYRIGHT	Abril, 2014 - Departamento de Ciencias e Ingeniería de la Computación - UNIVERSIDAD NACIONAL DEL SUR 
+	AUTOR		Cardoso Virginia
+	AUTOR 		Marzullo Matias
+	COPYRIGHT	Septimbre 2015 - Departamento de Ciencias e Ingeniería de la Computación - UNIVERSIDAD NACIONAL DEL SUR 
 */
 
 var mostrando_modal = false;
@@ -245,7 +247,10 @@ function handler_formulario() {
 								status = "<strong>DATOS INVÁLIDOS</strong>";
 								break;
 							case STATUS_NO_INSERT:
-								status = "<strong>ERROR EN EL SERVIDOR</strong>";
+								status = "<strong>ERROR EN EL SERVIDOR- archivar examen</strong>";
+								break;
+								case STATUS_NO_INSERT2:
+								status = "<strong>ERROR EN EL SERVIDOR- archivar items</strong>";
 								break;
 							case STATUS_REDIRECT:
 								status = "<strong>ERROR DE ACCESO</strong>";	
@@ -308,15 +313,17 @@ function set_estilos_revision(agregar) {
 function revisar_items(evaluando) {
 
 	var rta_correctas = 0;
+	var nota = 0;
 	var rta_respondidas = 0;			
 
 	if(evaluando) {			
 
 		$('.item-estado').each(function() {
-
-			if($(this).val() == ITEM_SI) {
+		// $('.item-estado','.item-pond').each(function() {
+			if($(this).val() == ITEM_SI) {   // 	VAL() DA EL VALOR DEL <input value="lo que sea"> 
 				rta_correctas ++;
 				rta_respondidas ++;
+				// nota =+ $('.item-pond').val(); 		//entra al input correcto?
 				$(this).parent().addClass('bg-success');
 				
 				manage_observacion(true, $(this).nextAll('.item-obs-container'));
@@ -344,6 +351,7 @@ function revisar_items(evaluando) {
 			if($(this).data('estado') == ITEM_SI) {
 				rta_correctas ++;
 				rta_respondidas ++;
+				// nota =+ $(this).pon;
 				$(this).parent().parent().addClass('bg-success');
 				$(this).html('sí').addClass('item-value-si');
 			}

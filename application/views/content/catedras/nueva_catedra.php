@@ -48,7 +48,7 @@
  
  <div class="div-titulo">
 
-		<label>Nueva Cátedra </label>
+		<label><?php echo '<a href="lista_catedras" title="Ir la página anterior">Cátedras/</a>';?>Nueva Cátedra </label>
  </div>
   <!-- Contenido pestaña crear nueva catedra  -->
   	<div id="div-form-nuevo" class="form-container">

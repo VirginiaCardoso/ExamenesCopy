@@ -46,7 +46,7 @@
 <div id="div-form" class="form-container">
 
 	<div class="div-titulo">
-		<label>Agregar Docentes a Cátedra: <?php echo $catedra['cod_cat'].' - '.$catedra['nom_cat']; ?></label> 
+		<label><?php echo '<a href="../lista_catedras" title="Ir la página anterior">Cátedras/</a>';?>Agregar Docentes a Cátedra: <?php echo $catedra['cod_cat'].' - '.$catedra['nom_cat']; ?></label> 
 	</div>
 
 	<?php $cat = $catedra['cod_cat']; ?>

@@ -27,14 +27,14 @@ Version: 3.4.6 Timestamp: Sat Mar 22 22:30:15 EDT 2014
 
 .select2-container .select2-choice {
     display: block;
-    height: 26px;
+    height: 32px;
     padding: 0 0 0 8px;
     overflow: hidden;
     position: relative;
 
     border: 1px solid #aaa;
     white-space: nowrap;
-    line-height: 26px;
+    line-height: 32px;
     color: #444;
     text-decoration: none;
 
@@ -73,7 +73,7 @@ Version: 3.4.6 Timestamp: Sat Mar 22 22:30:15 EDT 2014
 }
 
 .select2-container .select2-choice > .select2-chosen {
-    margin-right: 26px;
+    margin-right: 32px;
     display: block;
     overflow: hidden;
 
@@ -206,7 +206,7 @@ Version: 3.4.6 Timestamp: Sat Mar 22 22:30:15 EDT 2014
 .select2-search {
     display: inline-block;
     width: 100%;
-    min-height: 26px;
+    min-height: 32px;
     margin: 0;
     padding-left: 4px;
     padding-right: 4px;
@@ -220,7 +220,7 @@ Version: 3.4.6 Timestamp: Sat Mar 22 22:30:15 EDT 2014
 .select2-search input {
     width: 100%;
     height: auto !important;
-    min-height: 26px;
+    min-height: 32px;
     padding: 4px 20px 4px 5px;
     margin: 0;
 
@@ -459,7 +459,7 @@ disabled look for disabled choices in the results dropdown
 }
 
 .select2-container-multi .select2-choices {
-    min-height: 26px;
+    min-height: 32px;
 }
 
 .select2-container-multi.select2-container-active .select2-choices {

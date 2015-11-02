@@ -134,7 +134,7 @@ class Docentes_model extends CI_Model {
 	}
 
 	/**
-	 *	Obtiene lista de usuarios.
+	 *	Modificar datos de un docente
 	 *
 	 * @access	public
 	 * @param 	int $leg
@@ -155,13 +155,41 @@ class Docentes_model extends CI_Model {
 		$query = $this->db->query($query_string,array($apellido,$nom,$dni,$email,$tel,$priv,$leg));
 		if($this->db->affected_rows() == 0) 
 		{
-			$exam = $query->row_array();	
+			//$exam = $query->row_array();	//salta error si no modifican nada y guardan
+			
 			throw new Exception(ERROR_REPETIDO); //cambiar error
 		}
 		
 	}
 
 
+	/**
+	 *	Modiicar Contraseña docente
+	 *
+	 * @access	public
+	 * @param 	int $leg
+	 * 
+	 *
+	 */
+
+	public function actualizarC_docente($leg,$pass)
+	{
+		// UPDATE table_name
+		// 	SET column_name = value
+		// 	WHERE condition
+
+		//Verifico que exista un docente con el mismo legajo
+		$query_string = " UPDATE docentes
+	 		SET pass = ?
+		 	WHERE leg_doc = ?";
+		$query = $this->db->query($query_string,array($pass,$leg));
+		if($this->db->affected_rows() == 0) 
+		{
+			$exam = $query->row_array();	
+			throw new Exception(ERROR_REPETIDO); //cambiar error
+		}
+		
+	}
 	
 	
 }

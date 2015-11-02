@@ -99,6 +99,14 @@ class Guias_model extends CI_Model {
 			$query = $this->db->query($query_string,array($id_guia));
 			if($this->db->affected_rows() > 0) 
 			{	
+				$query_string = "SELECT id_item FROM items_guias
+				WHERE id_guia = ? ";
+				$query = $this->db->query($query_string,array($id_guia));
+			    if($this->db->affected_rows() > 0)
+			    {
+			    	$query_string = "DELETE FROM items_guias WHERE id_guia = ?";
+					$this->db->query($query_string,array($id_guia));
+			    }
 				$query_string = "DELETE FROM guias_catedras WHERE id_guia = ?";
 				$this->db->query($query_string,array($id_guia));
 			}
@@ -117,7 +125,7 @@ class Guias_model extends CI_Model {
 	 *
 	 */
 
-	public function insert_guia_catedra($cod_cat, $tit_guia)
+	public function insert_guia_catedra($cod_cat, $nro_guia, $tit_guia)
 	{
 
 		//Verifico que no exista una guía con el mismo nombre
@@ -142,9 +150,9 @@ class Guias_model extends CI_Model {
 		$id_guia = $this->db->insert_id();
 		
 		//Inserto info en la tabla guias_catedras
-		$query_string = "INSERT INTO guias_catedras(id_guia, cod_cat) VALUES (LAST_INSERT_ID(),?);";
+		$query_string = "INSERT INTO guias_catedras(id_guia, cod_cat, nro_guia) VALUES (LAST_INSERT_ID(),?,?);";
 
-		$this->db->query($query_string,array($cod_cat));
+		$this->db->query($query_string,array($cod_cat, $nro_guia));
 		//controlo que se haya insertado nueva relacion guia-catedra
 		if($this->db->affected_rows() == 0)
 		{
@@ -197,9 +205,9 @@ class Guias_model extends CI_Model {
 	 * @param 	$id_item int id del item
 	 * @param 	$id_guia int id de la guia
 	 *
-	 */
-
-	public function vincular_item_guia($id_item, $id_guia,$pos_item,$nro_item)
+	 */	
+																		//$pon_item,
+	public function vincular_item_guia($id_item, $id_guia,$pos_item,$nro_item,$id_grupoitem)
 	{
 
 		//Verifico que no exista el item en la guía
@@ -212,10 +220,10 @@ class Guias_model extends CI_Model {
 		// 	$exam = $query->row_array();	
 		// 	throw new Exception(ERROR_REPETIDO);
 		// }	
-		//Inserto info en la tabla items_guias
-		$query_string = "INSERT INTO items_guias(id_item, id_guia,pos_item,nro_item) VALUES (?,?,?,?);";
+		//Inserto info en la tabla items_guias                           pon_item,
+		$query_string = "INSERT INTO items_guias(id_item, id_guia,pos_item,nro_item,id_grupoitem) VALUES (?,?,?,?,?);";
 
-		$this->db->query($query_string,array($id_item,$id_guia,$pos_item,$nro_item));
+		$this->db->query($query_string,array($id_item,$id_guia,$pos_item,$nro_item,$id_grupoitem)); //$pon_item,
 	
 
 	}
@@ -250,7 +258,7 @@ class Guias_model extends CI_Model {
 	 */
 
 	public function get_items($id_guia)
-	{
+	{									//pon_item,
 		$query_string = "SELECT id_item,pos_item,nro_sec,nom_sec,nro_grupoitem,nom_grupoitem,nro_item,nom_item,solo_texto 
 			FROM items NATURAL LEFT JOIN items_guias NATURAL LEFT JOIN secciones NATURAL LEFT JOIN grupositems 
 			WHERE id_guia = ? ORDER BY pos_item ASC";
