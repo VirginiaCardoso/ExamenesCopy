@@ -271,7 +271,7 @@ class Crear_nueva_guia extends CI_Controller {
                 $this->form_validation->set_rules('item-id', 'item-id', 'required');
                 $this->form_validation->set_rules('item-tipo', 'item-tipo', 'required');
                 $this->form_validation->set_rules('item-texto', 'item-texto', 'required');
-                // $this->form_validation->set_rules('item-pond','item-pond', 'required');
+                $this->form_validation->set_rules('item-pond','item-pond', 'required');
                 $this->form_validation->set_rules('item-posic','item-posic', 'required');
                 $this->form_validation->set_rules('item-nro','item-nro', 'required');
                 $this->form_validation->set_rules('item-grupo','item-grupo', 'required');
@@ -326,12 +326,12 @@ class Crear_nueva_guia extends CI_Controller {
                         $valid = false;
                         $input_errors['item-texto']='Arreglo item-texto vacio'; 
                     }
-                    // $items_pond = $this->input->post('item-pond');
-                    // if(!$items_pond || empty($items_pond)) 
-                    // {
-                    //     $valid = false;
-                    //     $input_errors['item-pond']='Arreglo item-pond vacio'; 
-                    // }
+                    $items_pond = $this->input->post('item-pond');
+                    if(!$items_pond || empty($items_pond)) 
+                    {
+                        $valid = false;
+                        $input_errors['item-pond']='Arreglo item-pond vacio'; 
+                    }
                     $items_posic = $this->input->post('item-posic');
                     if(!$items_posic || empty($items_posic)) 
                     {
@@ -351,7 +351,7 @@ class Crear_nueva_guia extends CI_Controller {
                         $input_errors['item-grupo']='Arreglo item-grupo vacio'; 
                     }
                                                     //&& count($items_id)==count($items_pond)
-                    if (!( count($items_id)==count($items_tipo) && count($items_id)==count($items_texto)  && count($items_id)==count($items_posic) && count($items_id)==count($items_nro) && count($items_id)==count($items_grupo)) ) 
+                    if (!( count($items_id)==count($items_tipo) && count($items_id)==count($items_pond) && count($items_id)==count($items_texto)  && count($items_id)==count($items_posic) && count($items_id)==count($items_nro) && count($items_id)==count($items_grupo)) ) 
                     {
                         $valid = false;
                         $input_errors['items']='Arreglos de distinto tamaño';
@@ -383,7 +383,7 @@ class Crear_nueva_guia extends CI_Controller {
                                 $id_item = $this->items_model->insert_item($items_texto[$i], 0);
                                 $arreglo_items[$j]['id_item'] = $id_item;
 
-                                // $arreglo_items[$j]['pond_item'] = $items_pond[$i];
+                                $arreglo_items[$j]['pond_item'] = $items_pond[$i];
                                 $arreglo_items[$j]['pos_item'] = $items_posic[$i];
                                 $arreglo_items[$j]['nro_item'] = $items_nro[$i];
                                 $arreglo_items[$j]['id_grupoitem'] = NULL;
@@ -393,7 +393,7 @@ class Crear_nueva_guia extends CI_Controller {
                                 if ($items_tipo[$i]=="item-bd"){
                                     $arreglo_items[$j]['id_item'] =$items_id[$i];
 
-                                    // $arreglo_items[$j]['pond_item'] = $items_pond[$i];
+                                    $arreglo_items[$j]['pond_item'] = $items_pond[$i];
                                     $arreglo_items[$j]['pos_item'] = $items_posic[$i];
                                     $arreglo_items[$j]['nro_item'] = $items_nro[$i];
                                     $arreglo_items[$j]['id_grupoitem'] = NULL;
@@ -414,7 +414,7 @@ class Crear_nueva_guia extends CI_Controller {
                                             $id_item = $this->items_model->insert_item($items_texto[$i], 0);
                                             $arreglo_items[$j]['id_item'] = $id_item;
 
-                                            // $arreglo_items[$j]['pond_item'] = $items_pond[$i];
+                                            $arreglo_items[$j]['pond_item'] = $items_pond[$i];
                                             $arreglo_items[$j]['pos_item'] = $items_posic[$i];
                                             $arreglo_items[$j]['nro_item'] = $items_nro[$i];
 
@@ -436,7 +436,7 @@ class Crear_nueva_guia extends CI_Controller {
                                             if ($items_tipo[$i]=="item-grupo-bd"){
                                                 $arreglo_items[$j]['id_item'] =$items_id[$i];
 
-                                                // $arreglo_items[$j]['pond_item'] = $items_pond[$i];
+                                                $arreglo_items[$j]['pond_item'] = $items_pond[$i];
                                                 $arreglo_items[$j]['pos_item'] = $items_posic[$i];
                                                 $arreglo_items[$j]['nro_item'] = $items_nro[$i];
 
@@ -469,7 +469,7 @@ class Crear_nueva_guia extends CI_Controller {
                         for($j = 0; $j < count($arreglo_items); $j++){
                             try {
                                                                                                                 //$arreglo_items[$j]['pond_item'],
-                             $this->guias_model->vincular_item_guia($arreglo_items[$j]['id_item'], $guia_id,$arreglo_items[$j]['pos_item'],$arreglo_items[$j]['nro_item'],$arreglo_items[$j]['id_grupoitem']);
+                             $this->guias_model->vincular_item_guia($arreglo_items[$j]['id_item'], $guia_id,$arreglo_items[$j]['pos_item'],$arreglo_items[$j]['pond_item'],$arreglo_items[$j]['nro_item'],$arreglo_items[$j]['id_grupoitem']);
                       
                             } catch (Exception $e) {
 

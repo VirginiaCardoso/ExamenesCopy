@@ -24,7 +24,8 @@
 		if($evaluar) 
 		{				// <input type='hidden' name='item-pond[]' class='item-pond' id='pond-item-{$item['id']}' value='{$item['pond']}'/>
 			$inputs = 	"<input type='hidden' name='item-id[]' id='input-item-{$item['id']}' value='{$item['id']}'/>
-						 <input type='hidden' name='item-estado[]' class='item-estado' id='estado-item-{$item['id']}' data-item='{$item['id']}' value='-1'/>";
+						 <input type='hidden' name='item-estado[]' class='item-estado' id='estado-item-{$item['id']}' data-item='{$item['id']}' value='-1'/>
+						 <input type='hidden' name='item-pond[]' class='item-pond' id='pond-item-{$item['id']}' value='{$item['pon']}'/>";
 		}
 		else
 		{
@@ -50,7 +51,8 @@
 							</div>";
 			}
 
-			$botonera =	$botonera."<span class='item-value-titulo calificacion'>Respuesta: </span><span class='item-value calificacion' {$value}>-</span>";
+			$botonera =	$botonera."<span class='item-value-titulo calificacion'>Respuesta: </span><span class='item-value calificacion' {$value}>-</span> ";
+			// <span class='item-value-pond ponderacion calificacion'>{$item['pon']}</span>";
 		}
 		else 
 		{
@@ -68,7 +70,7 @@
 			$botonera =	$botonera."</div>";
 
 		$texto =	"<div class='item-texto'>						
-						<span class='numero'>{$item['nro']}.</span> {$item['nom']}
+						<span class='numero'>{$item['nro']}.</span> {$item['nom']} ({$item['pon']}%)
 					</div>";
 
 		$fin = 	"	<div class='clearboth'></div>";
@@ -423,6 +425,8 @@
 
 				<div class="calificacion container-calificacion">
 				 	Porcentaje correctas: <span id="porcentaje-realizado">porcentaje</span>
+				 	<br>
+				 	Porcentaje ponderación: <span id="ponderacion-realizado">ponderacion</span>
 				 	<input type="hidden" name="examen-porc" id="examen-porc" value="-1">
 
 				 	<div class="examen-calificacion">

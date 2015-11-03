@@ -207,7 +207,7 @@ class Guias_model extends CI_Model {
 	 *
 	 */	
 																		//$pon_item,
-	public function vincular_item_guia($id_item, $id_guia,$pos_item,$nro_item,$id_grupoitem)
+	public function vincular_item_guia($id_item, $id_guia,$pos_item,$pon_item,$nro_item,$id_grupoitem)
 	{
 
 		//Verifico que no exista el item en la guía
@@ -221,9 +221,9 @@ class Guias_model extends CI_Model {
 		// 	throw new Exception(ERROR_REPETIDO);
 		// }	
 		//Inserto info en la tabla items_guias                           pon_item,
-		$query_string = "INSERT INTO items_guias(id_item, id_guia,pos_item,nro_item,id_grupoitem) VALUES (?,?,?,?,?);";
+		$query_string = "INSERT INTO items_guias(id_item, id_guia,pos_item,pon_item,nro_item,id_grupoitem) VALUES (?,?,?,?,?,?);";
 
-		$this->db->query($query_string,array($id_item,$id_guia,$pos_item,$nro_item,$id_grupoitem)); //$pon_item,
+		$this->db->query($query_string,array($id_item,$id_guia,$pos_item,$pon_item,$nro_item,$id_grupoitem)); //$pon_item,
 	
 
 	}
@@ -259,7 +259,7 @@ class Guias_model extends CI_Model {
 
 	public function get_items($id_guia)
 	{									//pon_item,
-		$query_string = "SELECT id_item,pos_item,nro_sec,nom_sec,nro_grupoitem,nom_grupoitem,nro_item,nom_item,solo_texto 
+		$query_string = "SELECT id_item,pos_item,pon_item,nro_sec,nom_sec,nro_grupoitem,nom_grupoitem,nro_item,nom_item,solo_texto 
 			FROM items NATURAL LEFT JOIN items_guias NATURAL LEFT JOIN secciones NATURAL LEFT JOIN grupositems 
 			WHERE id_guia = ? ORDER BY pos_item ASC";
 		$query = $this->db->query($query_string,array($id_guia));

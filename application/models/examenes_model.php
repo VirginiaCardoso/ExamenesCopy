@@ -145,7 +145,7 @@ class Examenes_model extends CI_Model {
 
 	public function get_items($id_exam)
 	{
-		$query_string = "SELECT id_item,pos_item,nro_sec,nom_sec,nro_grupoitem,nom_grupoitem,nro_item,nom_item,solo_texto,estado_item,obs_item 
+		$query_string = "SELECT id_item,pos_item,pon_item, nro_sec,nom_sec,nro_grupoitem,nom_grupoitem,nro_item,nom_item,solo_texto,estado_item,obs_item 
 			FROM items NATURAL LEFT JOIN items_examenes NATURAL LEFT JOIN examenes NATURAL LEFT JOIN guias 
 			NATURAL LEFT JOIN items_guias NATURAL LEFT JOIN secciones NATURAL LEFT JOIN grupositems 
 			WHERE id_exam = ? ORDER BY pos_item ASC";

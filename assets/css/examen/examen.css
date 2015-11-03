@@ -75,6 +75,9 @@ body {
 .item-value-titulo {
 	display: none;
 }
+.item-value-pond {
+	display: none;
+}
 .item-value {
 	font-weight: bold;
 	font-size: 16px;

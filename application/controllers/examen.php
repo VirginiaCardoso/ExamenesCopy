@@ -253,6 +253,7 @@ class Examen extends CI_Controller {
         return $catedras;
     }
 
+
     /**
      * Devuelve arreglo con las guias correspondientes a la catedra elegida
      *
@@ -301,6 +302,7 @@ class Examen extends CI_Controller {
                 $this->util->json_response(FALSE,STATUS_EMPTY_POST,"");
         }
     }
+
 
     /**
      * Controlador de la lista de guias y alumnos (accedido mediante AJAX). Retorna JSON
@@ -389,7 +391,7 @@ class Examen extends CI_Controller {
                                             'nro' => $nro_seccion.'.'.$nro_grupo.'.'.$item_completo['nro_item'],
                                             'nom' => $item_completo['nom_item'],
                                             'id' => $item_completo['id_item'],
-                                            // 'pon' => $item_completo['pon_item'],
+                                            'pon' => $item_completo['pon_item'],
                                             'solo_texto' => $item_completo['solo_texto']);
                             if($examen) 
                             {    
@@ -413,7 +415,7 @@ class Examen extends CI_Controller {
                                     'nro' => $nro_seccion.'.'.$item_completo['nro_item'],
                                     'nom' => $item_completo['nom_item'],
                                     'id' => $item_completo['id_item'],
-                                    // 'pon' => $item_completo['pon_item'],
+                                    'pon' => $item_completo['pon_item'],
                                     'solo_texto' => $item_completo['solo_texto']);  
                         if($examen) 
                         {    
@@ -452,7 +454,7 @@ class Examen extends CI_Controller {
                                     'nro' => $nro_grupo.'.'.$item_completo['nro_item'],
                                     'nom' => $item_completo['nom_item'],
                                     'id' => $item_completo['id_item'],
-                                    // 'pon' => $item_completo['pon_item'],
+                                    'pon' => $item_completo['pon_item'],
                                     'solo_texto' => $item_completo['solo_texto']);
                     if($examen) 
                     {    
@@ -478,7 +480,7 @@ class Examen extends CI_Controller {
                                     'nro' => $item_completo['nro_item'],
                                     'nom' => $item_completo['nom_item'],
                                     'id' => $item_completo['id_item'],
-                                    // 'pon' => $item_completo['pon_item'],
+                                    'pon' => $item_completo['pon_item'],
                                     'solo_texto' => $item_completo['solo_texto']);
                 if($examen) 
                 {    
@@ -488,7 +490,6 @@ class Examen extends CI_Controller {
                 $k++;
             }
         }
-
         return $lista;
 
     }

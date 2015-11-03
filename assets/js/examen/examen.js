@@ -314,7 +314,8 @@ function revisar_items(evaluando) {
 
 	var rta_correctas = 0;
 	var nota = 0;
-	var rta_respondidas = 0;			
+	var rta_respondidas = 0;
+	var pond = 0;			
 
 	if(evaluando) {			
 
@@ -325,6 +326,8 @@ function revisar_items(evaluando) {
 				rta_respondidas ++;
 				// nota =+ $('.item-pond').val(); 		//entra al input correcto?
 				$(this).parent().addClass('bg-success');
+				var p =  parseInt($(this).next('.item-pond').val());
+				pond = pond+p;
 				
 				manage_observacion(true, $(this).nextAll('.item-obs-container'));
 			}
@@ -352,6 +355,8 @@ function revisar_items(evaluando) {
 				rta_correctas ++;
 				rta_respondidas ++;
 				// nota =+ $(this).pon;
+				var p = parseInt($(this).next('.item-pond').val());
+				pond = pond+p;
 				$(this).parent().parent().addClass('bg-success');
 				$(this).html('sí').addClass('item-value-si');
 			}
@@ -368,6 +373,32 @@ function revisar_items(evaluando) {
 				}
 			}					
 		});
+		// $('.item-value-pond').each(function() {
+
+		// 	// if($(this).data('estado') == ITEM_SI) {
+		// 	// 	rta_correctas ++;
+		// 	// 	rta_respondidas ++;
+		// 	// 	// nota =+ $(this).pon;
+		// 	// 	$(this).parent().parent().addClass('bg-success');
+		// 	// 	$(this).html('sí').addClass('item-value-si');
+		// 	// }
+		// 	// else {
+		// 	// 	if($(this).data('estado') == ITEM_NO) {
+
+		// 	// 		rta_respondidas ++;
+		// 	// 		$(this).parent().parent().addClass('bg-danger');	
+		// 	// 		$(this).html('no').addClass('item-value-no');
+		// 	// 	}
+		// 	// 	else {
+
+		// 	// 		$(this).parent().parent().addClass('bg-no-resp');
+		// 	// 	}
+		// 	// }
+
+		// 	pond = pond + $(this).data('ponderacion');
+
+		// });
+
 	}
 
 	var porcentaje_correcto = 0;
@@ -377,7 +408,8 @@ function revisar_items(evaluando) {
 		porcentaje_correcto = porcentaje_correcto.toFixed(2);
 	}
 
-	$('#porcentaje-realizado').html(porcentaje_correcto + "%  - ("+rta_correctas+" / "+rta_respondidas+")");
+	$('#porcentaje-realizado').html(porcentaje_correcto + "%  - ("+rta_correctas+" / "+rta_respondidas+") ");
+	$('#ponderacion-realizado').html(pond + "%  / 100%");
 }
 
 /*
